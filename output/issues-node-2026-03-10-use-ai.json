@@ -1,0 +1,1784 @@
+{
+  "generatedAt": "2026-03-10T00:54:52.338Z",
+  "config": {
+    "language": "node",
+    "minStars": 500,
+    "fromDate": "2025-03-10",
+    "reposSearched": 10
+  },
+  "totalIssues": 40,
+  "byComplexity": {
+    "low": 28,
+    "medium": 11,
+    "high": 1
+  },
+  "issues": [
+    {
+      "repo": "facebook/react",
+      "issue": {
+        "number": 35954,
+        "title": "[DevTools Bug]: confused on prerender pages and resulting in high-cpu usage loop",
+        "body": "### Website or app\n\nexample; https://yuri.twintail.org/chrome/prerendering/specrules.html\n\n### Repro steps\n\nHello, I'm Takashi from Google Chrome team.\n\nI've investigated high-cpu usage issue on prerendering, and noticed that the React Developer Tools seems to be a root cause.\nThe original report for the chromium project is here; https://crbug.com/478909972\n\nSteps:\n1. Install React Developer Tools Extension (from the Chrome Web Store)\n2. Visit a page that uses specupationrules\n3. Open Chrome's Task manager from ... > More tools >, and see CPU usages\n4. Usage for the prerender pages shows higher CPU usages\n5. Open DevTools\n6. Prerender pages' CPU usages get much higher, and frame of the React Developer Tools spends almost 100%\n\nThis needs that the current page is accessible from the Extensions. e.g., they would not have a permission to touch the New Tab Page, and this doesn't happen there.\n\nAlso, this happens with Chrome UI triggered pretenders too. So, even if the page doesn't use the speculationrules, the problem could happen when users type something in the Omnibox, and Chrome has confidence on the next navigating page.\n\nI suspect this is because the extension doesn't expect the Chrome's recent MPArch: Multi-Page Architecture, and is confused on multiple page navigations.\nHere is a resource for the prerender and link for its impact on the Extension system.\n[Prerender pages in Chrome for instant page navigations > Impact on extensions\n](https://developer.chrome.com/docs/web-platform/prerender-pages#impact_on_extensions)\n\n### How often does this bug happen?\n\nEvery time\n\n### DevTools package (automated)\n\n_No response_\n\n### DevTools version (automated)\n\n_No response_\n\n### Error message (automated)\n\n_No response_\n\n### Error call stack (automated)\n\n```text\n\n```\n\n### Error component stack (automated)\n\n```text\n\n```\n\n### GitHub query string (automated)\n\n```text\n\n```",
+        "labels": [
+          "Type: Bug",
+          "Component: Developer Tools"
+        ],
+        "closedAt": "2026-03-04T12:39:19Z",
+        "commentCount": 6,
+        "url": "https://github.com/facebook/react/issues/35954"
+      },
+      "pr": {
+        "number": 35958,
+        "additions": 18,
+        "deletions": 2,
+        "changedFiles": 2,
+        "mergedAt": "2026-03-04T12:39:16Z",
+        "fileList": [
+          {
+            "filename": "flow-typed/environments/dom.js",
+            "additions": 2,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "packages/react-devtools-extensions/src/contentScripts/proxy.js",
+            "additions": 16,
+            "deletions": 2,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/facebook/react/pull/35958"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Straightforward bug fix involving adding null checks and guard conditions in extension content script to prevent high-CPU loops during prerendering, with minimal lines changed across only 2 files."
+    },
+    {
+      "repo": "facebook/react",
+      "issue": {
+        "number": 35923,
+        "title": "[DevTools Bug] Cannot read properties of null (reading 'ownerDocument')",
+        "body": "### Website or app\n\nmaterial-library.com\n\n### Repro steps\n\n1. open the site\n2. clicked on the view all button for categories\n3. scrolled the page and stopped recording\n4. clicked timeline option\n\n### How often does this bug happen?\n\nOnly once\n\n### DevTools package (automated)\n\nreact-devtools-extensions\n\n### DevTools version (automated)\n\n7.0.1-3cde211b0c\n\n### Error message (automated)\n\nCannot read properties of null (reading 'ownerDocument')\n\n### Error call stack (automated)\n\n```text\nat chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:919551\n    at chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:919824\n    at commitHookEffectListMount (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:129924)\n    at commitLayoutEffectOnFiber (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:142040)\n    at recursivelyTraverseLayoutEffects (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:157699)\n    at commitLayoutEffectOnFiber (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:141997)\n    at recursivelyTraverseLayoutEffects (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:157699)\n    at commitLayoutEffectOnFiber (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:141997)\n    at recursivelyTraverseLayoutEffects (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:157699)\n    at commitLayoutEffectOnFiber (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:141997)\n```\n\n### Error component stack (automated)\n\n```text\nat ContextMenu_ContextMenu (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:918953)\n    at ContextMenuContainer (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:920310)\n    at CanvasPageContextMenu (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:1089461)\n    at AutoSizedCanvas (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:1091403)\n    at div (<anonymous>)\n    at _t (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:754231)\n    at div (<anonymous>)\n    at src_CanvasPage (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:1096981)\n    at TimelineSearchContextController (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:1089153)\n    at div (<anonymous>)\n    at Timeline_Timeline (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:1116965)\n    at div (<anonymous>)\n    at div (<anonymous>)\n    at div (<anonymous>)\n    at SettingsModalContextController (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:879909)\n    at chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:1144384\n    at ao (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:898411)\n    at div (<anonymous>)\n    at div (<anonymous>)\n    at ThemeProvider (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:901116)\n    at chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:901313\n    at div (<anonymous>)\n    at div (<anonymous>)\n    at div (<anonymous>)\n    at ThemeProvider (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:901116)\n    at SuspenseTreeContextController (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:1147064)\n    at InspectedElementContextController (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:915935)\n    at TimelineContextController (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:994422)\n    at ProfilerContextController (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:986233)\n    at TreeContextController (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:786019)\n    at SettingsContextController (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:815755)\n    at ModalDialogContextController (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:972480)\n    at DevTools_DevTools (chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/main.js:1:1175879)\n```\n\n### GitHub query string (automated)\n\n```text\nhttps://api.github.com/search/issues?q=Cannot read properties of null (reading 'ownerDocument') in:title is:issue is:open is:public label:\"Component: Developer Tools\" repo:facebook/react\n```",
+        "labels": [
+          "Type: Bug",
+          "Status: Unconfirmed",
+          "Component: Developer Tools"
+        ],
+        "closedAt": "2026-03-05T15:52:25Z",
+        "commentCount": 0,
+        "url": "https://github.com/facebook/react/issues/35923"
+      },
+      "pr": {
+        "number": 35929,
+        "additions": 18,
+        "deletions": 9,
+        "changedFiles": 2,
+        "mergedAt": "2026-03-05T15:52:24Z",
+        "fileList": [
+          {
+            "filename": "packages/react-devtools-shared/src/devtools/ContextMenu/ContextMenu.js",
+            "additions": 18,
+            "deletions": 8,
+            "status": "modified"
+          },
+          {
+            "filename": "packages/react-devtools-shared/src/devtools/ContextMenu/ContextMenuContainer.js",
+            "additions": 0,
+            "deletions": 1,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/facebook/react/pull/35929"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Null reference bug fix in context menu component with minimal changes (18 lines added, 2 files) that adds missing null checks without architectural changes."
+    },
+    {
+      "repo": "facebook/react",
+      "issue": {
+        "number": 35138,
+        "title": "[Compiler Bug]: stable setter for useOptimistic",
+        "body": "### What kind of issue is this?\n\n- [x] React Compiler core (the JS output is incorrect, or your app works incorrectly after optimization)\n- [ ] babel-plugin-react-compiler (build issue installing or using the Babel plugin)\n- [ ] eslint-plugin-react-hooks (build issue installing or using the eslint plugin)\n- [ ] react-compiler-healthcheck (build issue installing or using the healthcheck script)\n\n### Link to repro\n\nhttps://playground.react.dev/#N4Igzg9grgTgxgUxALhAMygOzgFwJYSYAEAwhALYAOhCmOAFMGAgDYK4CCuBmAvgJRFgAHUzCccQmBxEA2njAAFWgBM8mAOYAaIsxwBJJavUaAukQC8RKMwDylfOQX449NAEMWzfgG5R-iSkZd25CS2tmEk8WACMQgGt6ekELAD4hAPE9Q2VMNU16HBgoBF9MooQcWGJmNk5QzGS-MRxeHVla9hwufEJTMrEWmErqonpygB5U8vEJgGVWLv1MSihghotgEN6+IgB6aZbxcWAFXPyNIgAyK6IJsEp3TFSAcgA6D5eJvYen1N5JgcAvxRLwQFoQJJMGg8BoUCA8FQIDAZDgAJ6UBBCIiKFhQDTqew7MBEXhENAwChEF5xGKsAC0lDxBMw9OG23pkioeDYMD2amkL2aokYoiI+z2XMoPPcOwAshAVAhkERhCBomqxaqQI9MHg4AAVAAWwzARogLBUapVaswNDVWi1apw7hgGkq1u1AEYAJwO0G6WUKGEIEm4-GEhw8MC+cHgc0Ad2WOAQMEwnjAKA8XgQvCAA\n\n### Repro steps\n\n<img width=\"1280\" height=\"635\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/47665500-8654-4d6b-9d20-444460671c2f\" />\n\n### How often does this bug happen?\n\nEvery time\n\n### What version of React are you using?\n\n19.2\n\n### What version of React Compiler are you using?\n\nplayground",
+        "labels": [
+          "Type: Bug"
+        ],
+        "closedAt": "2025-11-18T15:50:44Z",
+        "commentCount": 1,
+        "url": "https://github.com/facebook/react/issues/35138"
+      },
+      "pr": {
+        "number": 35141,
+        "additions": 176,
+        "deletions": 2,
+        "changedFiles": 5,
+        "mergedAt": "2025-11-18T15:50:43Z",
+        "fileList": [
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/HIR/Globals.ts",
+            "additions": 13,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/HIR/HIR.ts",
+            "additions": 17,
+            "deletions": 2,
+            "status": "modified"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/HIR/ObjectShape.ts",
+            "additions": 22,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/preserve-memo-validation/preserve-use-callback-stable-built-ins.expect.md",
+            "additions": 91,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/preserve-memo-validation/preserve-use-callback-stable-built-ins.ts",
+            "additions": 33,
+            "deletions": 0,
+            "status": "added"
+          }
+        ],
+        "url": "https://github.com/facebook/react/pull/35141"
+      },
+      "complexity": "medium",
+      "reasoning": "[AI] Requires understanding React Compiler's HIR system, globals handling, and object shape analysis across multiple interdependent files, plus adding comprehensive test fixtures, but changes are localized to compiler core components without architectural restructuring."
+    },
+    {
+      "repo": "facebook/react",
+      "issue": {
+        "number": 35122,
+        "title": "[Compiler Bug]:  function are not memorized correctly.",
+        "body": "### What kind of issue is this?\n\n- [x] React Compiler core (the JS output is incorrect, or your app works incorrectly after optimization)\n- [ ] babel-plugin-react-compiler (build issue installing or using the Babel plugin)\n- [ ] eslint-plugin-react-hooks (build issue installing or using the eslint plugin)\n- [ ] react-compiler-healthcheck (build issue installing or using the healthcheck script)\n\n### Link to repro\n\nhttps://playground.react.dev/#N4Igzg9grgTgxgUxALhAMygOzgFwJYSYAEAKgmDgIwAUAlEcADrFFyEVEDaCAHgA54YCADREwCHAFF+ghAF0iAXiJRxAZRwBDHAmoBWWsyIrxktGgS5qdJQD4GR463Y4i+ALYIYSsRICSmDowAG6aADbW9Ir2TCxOvlIyQtZ8QsFR9qkIwUQAtESUhnFEAL6ilAAMVUXxeGhE1LwCQkqKyhX0sfHGcGEImjABQaERHl41TiWOxkI4sMQ20ax9A0NeI9RjMBNlXE2ychNsmByEAMJheHAA1j6LMdPOJxB9AHRhEADm1ADkeGDSZoIAAmP1E-0BsmBO0cxw4EKSIJ8+xabXajlm8yIAB5gXgcudLjdFMBCVdriVlpowGAAHKaTyKRggHQ8HC5ITA3J6KrM2zAFEIErYgD0eOCtmYJRAwhAxzQeE+KBAeHcfAgMFcOAAnnwEAwiAAFMJQT54TAAeT4+HYpSIaBgEHcRB+ACNNK6EGFcnwTWbMBz+rhcmw1Xg+jAxf8cD8ANzMZjULpEEUi0MCMLaAiYACyEGBCGQRGZ4TCzKlYizYAV5CNfvNVptJ1osZl4AAFhAAO5rGCYcJgFBoAdCoA\n\n### Repro steps\n\n### Link to the code that reproduces this issue\n\nhttps://github.com/promer94/incorrect-memo-fn-nextjs\n\n### To Reproduce\n\n1. build the application with `next build`\n2. start the application with `next start`\n3. click the numbers to see the console log\n\n\n```jsx\nfunction Test1() {\n    const [expire, setExpire] = useState(5)\n    useEffect(() => {\n        const timer = setInterval(() => {\n            setExpire((prev) => prev - 1)\n        }, 1000)\n        if (expire === 0) {\n            clearInterval(timer)\n        }\n        return () => clearInterval(timer)\n    }, [expire])\n    const onClick = () => {\n        console.log('isExpired', isExpired)\n    }\n    const isExpired = expire === 0\n    return <div onClick={onClick} className=\"text-red-500\">{expire}</div>\n}\n```\nThe onclick function should be able to access the latest value of `isExpired` \n\n\n### How often does this bug happen?\n\nEvery time\n\n### What version of React are you using?\n\n19.2.0\n\n### What version of React Compiler are you using?\n\n`1.0.0` would cause this bug\n\nBut `^19.1.0-rc.3` works correctly",
+        "labels": [
+          "Type: Bug",
+          "Component: React Compiler"
+        ],
+        "closedAt": "2025-12-05T19:29:07Z",
+        "commentCount": 2,
+        "url": "https://github.com/facebook/react/issues/35122"
+      },
+      "pr": {
+        "number": 35284,
+        "additions": 126,
+        "deletions": 8,
+        "changedFiles": 3,
+        "mergedAt": "2025-12-05T19:29:06Z",
+        "fileList": [
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/ReactiveScopes/InferReactiveScopeVariables.ts",
+            "additions": 0,
+            "deletions": 8,
+            "status": "modified"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/repro-stale-closure-forward-reference.expect.md",
+            "additions": 94,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/repro-stale-closure-forward-reference.js",
+            "additions": 32,
+            "deletions": 0,
+            "status": "added"
+          }
+        ],
+        "url": "https://github.com/facebook/react/pull/35284"
+      },
+      "complexity": "medium",
+      "reasoning": "[AI] Requires understanding the React Compiler's reactive scope inference system and closure handling semantics, involves fixing a subtle memoization bug across compiler internals with test fixtures, but is relatively localized to a single component with clear before/after test cases."
+    },
+    {
+      "repo": "facebook/react",
+      "issue": {
+        "number": 34818,
+        "title": "Bug: Stale closures with `useEffectEvent`",
+        "body": "<!--\n  Please provide a clear and concise description of what the bug is. Include\n  screenshots if needed. Please test using the latest version of the relevant\n  React packages to make sure your issue has not already been fixed.\n-->\n\nReact version: 19.2\n\n## Steps To Reproduce\n\n1. Open [the reduced test case](https://stackblitz.com/edit/github-utjrgufd?file=app%2Froot.tsx) and view the console\n2. Click the \"Home\" link (this causes `navigationType` to change to `REPLACE`)\n\n```tsx\nfunction App() {\n  const navigationType = useNavigationType();\n  // ✅ This is REPLACE after clicking the link.\n  console.log('render', navigationType);\n\n  const fn = useEffectEvent(() => {\n    // ❌ But this is always POP. It's not seeing the latest value!\n    console.log('effect event', navigationType);\n  });\n  useEffect(() => {\n    setInterval(() => {\n      fn();\n    }, 3000);\n  }, []);\n\n  return (\n    <>\n      <Link to=\"/\">Home</Link>\n      <Outlet />\n    </>\n  );\n}\n\n// 🤷‍♂️ Removing `memo` here fixes the problem.\nexport default memo(App);\n```\n\n\n\nLink to code example:\n\n<!--\n  Please provide a CodeSandbox (https://codesandbox.io/s/new), a link to a\n  repository on GitHub, or provide a minimal code example that reproduces the\n  problem. You may provide a screenshot of the application if you think it is\n  relevant to your bug report. Here are some tips for providing a minimal\n  example: https://stackoverflow.com/help/mcve.\n-->\n\nhttps://stackblitz.com/edit/github-utjrgufd?file=app%2Froot.tsx\n\n## The current behavior\n\nThe Effect Event receives a stale value from `navigationType` (`POP`).\n\n<img width=\"156\" height=\"121\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/12de8a41-a853-483b-a658-38a9bc2dba45\" />\n\n## The expected behavior\n\nThe Effect Event should receive the latest value from `navigationType` (`REPLACE`).",
+        "labels": [
+          "Type: Bug",
+          "Component: Reconciler"
+        ],
+        "closedAt": "2025-10-13T15:58:44Z",
+        "commentCount": 3,
+        "url": "https://github.com/facebook/react/issues/34818"
+      },
+      "pr": {
+        "number": 34831,
+        "additions": 81,
+        "deletions": 5,
+        "changedFiles": 2,
+        "mergedAt": "2025-10-13T15:58:43Z",
+        "fileList": [
+          {
+            "filename": "packages/react-reconciler/src/ReactFiberCommitWork.js",
+            "additions": 3,
+            "deletions": 5,
+            "status": "modified"
+          },
+          {
+            "filename": "packages/react-reconciler/src/__tests__/useEffectEvent-test.js",
+            "additions": 78,
+            "deletions": 0,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/facebook/react/pull/34831"
+      },
+      "complexity": "medium",
+      "reasoning": "[AI] Requires understanding React's useEffectEvent hook internals and closure semantics, with changes to core reconciler logic and comprehensive test coverage, but contained to 2 files with relatively modest line changes."
+    },
+    {
+      "repo": "facebook/react",
+      "issue": {
+        "number": 34748,
+        "title": "[Compiler Bug]: `startTransition` shouldn't be required as a dependency for `useCallback`.",
+        "body": "### What kind of issue is this?\n\n- [x] React Compiler core (the JS output is incorrect, or your app works incorrectly after optimization)\n- [ ] babel-plugin-react-compiler (build issue installing or using the Babel plugin)\n- [x] eslint-plugin-react-compiler (build issue installing or using the eslint plugin)\n- [ ] react-compiler-healthcheck (build issue installing or using the healthcheck script)\n\n### Link to repro\n\nhttps://playground.react.dev/#N4Igzg9grgTgxgUxALhAgHgBwjALgAgBMEAzAQygBsCSoA7OXASwjvwCUFswnccBPAMJkYhABTAAOm3wwuEHnxj9ks+YoEBpBPwA00-PgBuTBAHcEMVSfOXte6QF9VUmXO68Bqzh6VCRhAD67gqeygAkANY6ANwGxqYWVhzqYf6igTZJUbFOAJT4roZwrGAEANq6+GUiuAAqMGR0iix0ALr4ALz4UGAIDU0trGJ5cTIlzQRyJAi4cAAWnCRdPX1L+AA8KTNz8wBSEABGADJMZQBibAA++HRUlPgAfPhid5SUo-ETZWq+Aiu9BDnRoAcwAtgg6LgxPFDCDGph5gBHSgAA1hhnwJFBEKhKT+ymEGRCGmU+FY+NCfkKGMx+CYhFpmMoEDgZEoCDATMMcjIhH4AGVcGRcAhudVhbhetJxQA6eU+KkCAASCD5lmCqT8cvlBxOZ1wmoJ-HwAAERCCoLjcGAxCV6LhVABGAAMeSZjgxqP0Mh5Wq0Oh9hk+dC+pQqfMIitJ-GOrPZCCqkejaTjbI5AEkwBm6OdKEwQfNcB1OhjAQBZKCS1qbSkxomEACChCj-uUaYTlerFOeYnhZERKPRvsxYKrIprKb8DebreNHY5XYnw3F4RJaVUGYAIgBCVcs9MIVRCmBMOggvcj4M0q+Y5Nt2Pxjlidd+VRrh9VA8J9-fjkFIo6SA+VZSnAQGyNJVlHFT1b1gulURDMNJnJOhZzA9snwQAE+mEd5DjIOBIhhEcxD-I8JVPc8Ck6Z5ALpJhljEHd73nLCsxzPMCyLADxVYqDH0PCRxUMVhBAgMFMA5UVCFUEYujokTMRqPABmaXhWjEeTaJvIC9MxaZZgWJZZTgWA5ChAB+WVhNvfTMXtKFnRdIN7P0syYEgZI3koVy3MxRwQ38wxArGfzHD8-SjBEJgyEODkwBcJTDHIyL7NfLxfgE2UGTSoCIpgoL8oxAqR3KJl+JjBdEwqlsMMEhMONzfNC1wPKMuUHLCEitpXKQtxZlgNhWHQh9qrGWCQF0EAJhIAsUBAJhJJwAhcH4TBsOAfAAAVKCgEEzwAeUwZhSnwRwsRgCT8AAcgIw4EEoABaKT9rPJ7eUYJ6SkkpgORgAB6QgDRusZpFswwAYBn7MD+5c6HLCBiFUSQQHZShUfiSETCuuhrSS0MR0hOKOW2uQ+hgIwEAAUXQA0zxBcsEDBCAmAAL3hgBxKARCaUVOVUXAYCgGqR2i-NCBFBAyc5Swqdp+nzyZln2a5nnGihBABfwIWRfiWCLrACcwDmzkdtqWLKA2Xa3roY7TuaR5Rim8B5ggMwc1FGA6HZMAUHISg+kcIA\n\n### Repro steps\n\nWhen using:\n\n```tsx\nconst [, startTransition] = useTransition();\n```\n\nAnd then making use of the `startTransition` call in a `useCallback`, the React Compiler will say that it cannot preserve manual memoization. Once `startTransition` is added to the dependencies array, the React Compiler is happy. Since `useTransition` comes from React, and the exhaustive deps rule does not ask to add `startTransition` to the deps array, the React Compiler should assume this reference is stable.\n\n### How often does this bug happen?\n\nEvery time\n\n### What version of React are you using?\n\nlatest\n\n### What version of React Compiler are you using?\n\nlatest",
+        "labels": [
+          "Type: Bug",
+          "Status: Unconfirmed",
+          "Component: React Compiler"
+        ],
+        "closedAt": "2025-10-15T16:45:07Z",
+        "commentCount": 1,
+        "url": "https://github.com/facebook/react/issues/34748"
+      },
+      "pr": {
+        "number": 34847,
+        "additions": 192,
+        "deletions": 47,
+        "changedFiles": 9,
+        "mergedAt": "2025-10-15T16:45:06Z",
+        "fileList": [
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/TypeInference/InferTypes.ts",
+            "additions": 1,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/error.invalid-setState-in-render-unbound-state.expect.md",
+            "additions": 41,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/error.invalid-setState-in-render-unbound-state.js",
+            "additions": 13,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/holey-array.expect.md",
+            "additions": 0,
+            "deletions": 35,
+            "status": "removed"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/holey-array.js",
+            "additions": 0,
+            "deletions": 11,
+            "status": "removed"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/preserve-use-memo-transition-no-ispending.expect.md",
+            "additions": 52,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/preserve-use-memo-transition-no-ispending.js",
+            "additions": 15,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/preserve-use-memo-unused-state.expect.md",
+            "additions": 55,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/preserve-use-memo-unused-state.js",
+            "additions": 15,
+            "deletions": 0,
+            "status": "added"
+          }
+        ],
+        "url": "https://github.com/facebook/react/pull/34847"
+      },
+      "complexity": "medium",
+      "reasoning": "[AI] Requires understanding React Compiler's dependency analysis logic and type inference system across multiple test fixtures and core compiler files, involving subtle semantics around `startTransition` and `useCallback` dependency tracking."
+    },
+    {
+      "repo": "facebook/react",
+      "issue": {
+        "number": 34622,
+        "title": "[playground]: Syntax error crashes playground",
+        "body": "### What kind of issue is this?\n\n- [ ] React Compiler core (the JS output is incorrect, or your app works incorrectly after optimization)\n- [ ] babel-plugin-react-compiler (build issue installing or using the Babel plugin)\n- [ ] eslint-plugin-react-compiler (build issue installing or using the eslint plugin)\n- [ ] react-compiler-healthcheck (build issue installing or using the healthcheck script)\n\n### Link to repro\n\nhttps://playground.react.dev/#N4Igzg9grgTgxgUxALhAMygOzgFwJYSYAEAKgmDgMIQC2ADoQpjgBR0wR1gCURwAOsSJxCFIhE5giAXiLtJAOkGCiRGAhyxiLFaqIAeAHzAJXAL76A9Id3cA3ILMgANCBGY0eAOYoQeehAwOEQ4AJ50CHxEAAoANlBeeJgA8nT4okRmRGgcNEQA5ABGAIaFCLEAtHTxiZgV6sW4FSL0eLEIMJYAJngU+Q6YgiwCQpaWLXRtxemYALIQXQjIRPwgxbGxq45EYNO9nuQxNUmpMzx2LuAAFhAA7gCSzB2Y62AoaK8IZkA\n\n### Repro steps\n\nCreate a syntax error in the playground.\n\nFor example, paste the following code into the playground:\n\n```tsx\nfunction TestComponent(props) {\n  const oops = props.\n\n  return (\n    <>{oops}</>\n  );\n}\n```\n\n### How often does this bug happen?\n\nEvery time\n\n### What version of React are you using?\n\nlatest\n\n### What version of React Compiler are you using?\n\nlatest",
+        "labels": [
+          "Type: Bug",
+          "Status: Unconfirmed"
+        ],
+        "closedAt": "2025-10-09T19:02:57Z",
+        "commentCount": 2,
+        "url": "https://github.com/facebook/react/issues/34622"
+      },
+      "pr": {
+        "number": 34623,
+        "additions": 31,
+        "deletions": 1,
+        "changedFiles": 2,
+        "mergedAt": "2025-10-09T19:02:56Z",
+        "fileList": [
+          {
+            "filename": "compiler/apps/playground/__tests__/e2e/page.spec.ts",
+            "additions": 30,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "compiler/apps/playground/lib/compilation.ts",
+            "additions": 1,
+            "deletions": 1,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/facebook/react/pull/34623"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] This is a straightforward bug fix with minimal changes: one line modified in the compilation logic and test coverage added, totaling 31 lines across 2 files with no architectural changes or complex domain knowledge required."
+    },
+    {
+      "repo": "facebook/react",
+      "issue": {
+        "number": 34311,
+        "title": "[Compiler Bug]: errors when the `this` type is declared in a function",
+        "body": "### What kind of issue is this?\n\n- [ ] React Compiler core (the JS output is incorrect, or your app works incorrectly after optimization)\n- [x] babel-plugin-react-compiler (build issue installing or using the Babel plugin)\n- [ ] eslint-plugin-react-compiler (build issue installing or using the eslint plugin)\n- [ ] react-compiler-healthcheck (build issue installing or using the healthcheck script)\n\n### Link to repro\n\nhttps://playground.react.dev/#N4Igzg9grgTgxgUxALhAHQHYIB4AcIwAuABAGZQZyECWEGxUYCAYhBABQCGxAvMcAF8AlMmKcMAT36ZixOHTAlsvBkwDKhToQRdiAfj3FCMKAiEBuTDOIB6G8WoBzDAQRgjE3G7gxquEmASGJrY1oSeCMRqEAC2CAAqESriEpb0tvYIMDAE7nRGABbU7ricMJxx2jAeXg705JQ0dNYNVLT1bOyERWCi0XGJXkLSGNYC1jAIhLD0oRgCIAJAA\n\n### Repro steps\n\n1. Have any hook or component written in Typescript that has a function with the `this` type declared.\n2. Notice react compiler error.\n\n\n### How often does this bug happen?\n\nEvery time\n\n### What version of React are you using?\n\nLatest version on playground\n\n### What version of React Compiler are you using?\n\nLatest version on playground",
+        "labels": [
+          "Type: Bug",
+          "Status: Unconfirmed"
+        ],
+        "closedAt": "2025-08-27T21:58:45Z",
+        "commentCount": 3,
+        "url": "https://github.com/facebook/react/issues/34311"
+      },
+      "pr": {
+        "number": 34322,
+        "additions": 28,
+        "deletions": 3,
+        "changedFiles": 2,
+        "mergedAt": "2025-08-27T21:58:44Z",
+        "fileList": [
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/HIR/HIRBuilder.ts",
+            "additions": 16,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/ecma/error.reserved-words.expect.md",
+            "additions": 12,
+            "deletions": 3,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/facebook/react/pull/34322"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Isolated fix adding a null check and error handling in the HIR builder for a specific edge case (reserved word `this`), touching only 2 files with minimal changes (~28 lines total) and straightforward test expectations update."
+    },
+    {
+      "repo": "facebook/react",
+      "issue": {
+        "number": 34268,
+        "title": "[DevTools Bug]: devtools does not works on null origin(sandbox)",
+        "body": "### Website or app\n\nPlease refer to 'How to reproduce'.\n\n### Repro steps\n\n\nSave the following code as `server.js` , then run the command: `node server.js 1234 --sandbox`\nand open `http://127.0.0.1:1234` in your browser.\nWhen you check the Developer Tools, you'll notice that the React Components tab doesn't appear.\n\n<details>\n\n<summary><b><code>server.js</code> source code</b></summary>\n\n```js\nconst http = require(\"http\");\n\nconst args = process.argv.slice(2);\nconst withSandbox = args.includes(\"--sandbox\");\nif (args.length < 1) {\n    console.error(\"Usage: node server.js <port> [--sandbox]\");\n    process.exit(1);\n}\n\nconst html = `\n<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello</title>\n  </head>\n  <body>\n    <div id=\"root\"></div>\n    <script crossorigin src=\"https://unpkg.com/react@18/umd/react.development.js\"></script>\n    <script crossorigin src=\"https://unpkg.com/react-dom@18/umd/react-dom.development.js\"></script>\n    <script>\n      const App = () => React.createElement(\"h1\", null, \"Hello, React${withSandbox ? \" (sandbox enabled)\" : \"\"\n    }\");\n      ReactDOM.createRoot(document.getElementById(\"root\")).render(React.createElement(App, null));\n    </script>\n  </body>\n</html>`;\n\nconst port = parseInt(args[0], 10);\nif (Number.isNaN(port) || port <= 0) {\n    console.error(\"Invalid port:\", args[0]);\n    process.exit(1);\n}\nconst sendRes = (req, res, status, contentType, body) => {\n    res.statusCode = status;\n    res.setHeader(\"Content-Type\", contentType + \"; charset=utf-8\");\n    if (withSandbox)\n        res.setHeader(\"Content-Security-Policy\", \"sandbox allow-scripts\");\n    if (req.method !== \"OPTIONS\") res.end(body);\n};\n\nhttp\n    .createServer((req, res) => {\n        if (req.url === \"/\") {\n            sendRes(req, res, 200, \"text/html\", html);\n        } else {\n            sendRes(req, res, 404, \"text/plain\", \"404 Not Found\");\n        }\n    })\n    .listen(port, () => {\n        console.log(\n            `Server listening on port ${port}${withSandbox ? \" (sandbox enabled)\" : \"\"\n            }`\n        );\n    });\n```\n\n</details>\n\nI submitted a ticket over a year ago, but since it has not yet been resolved, I have resubmitted it with detailed information on how to reproduce the issue.\nrelated #29647\n\n### How often does this bug happen?\n\nEvery time\n\n### DevTools package (automated)\n\n_No response_\n\n### DevTools version (automated)\n\n_No response_\n\n### Error message (automated)\n\n_No response_\n\n### Error call stack (automated)\n\n```text\n\n```\n\n### Error component stack (automated)\n\n```text\n\n```\n\n### GitHub query string (automated)\n\n```text\n\n```",
+        "labels": [
+          "Type: Bug",
+          "Status: Unconfirmed",
+          "Component: Developer Tools"
+        ],
+        "closedAt": "2026-01-13T16:49:51Z",
+        "commentCount": 3,
+        "url": "https://github.com/facebook/react/issues/34268"
+      },
+      "pr": {
+        "number": 35208,
+        "additions": 390,
+        "deletions": 54,
+        "changedFiles": 11,
+        "mergedAt": "2026-01-13T16:49:49Z",
+        "fileList": [
+          {
+            "filename": "packages/react-devtools-extensions/src/background/dynamicallyInjectContentScripts.js",
+            "additions": 8,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "packages/react-devtools-extensions/src/background/messageHandlers.js",
+            "additions": 52,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "packages/react-devtools-extensions/src/contentScripts/fallbackEvalContext.js",
+            "additions": 35,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "packages/react-devtools-extensions/src/contentScripts/proxy.js",
+            "additions": 46,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "packages/react-devtools-extensions/src/evalScripts.js",
+            "additions": 112,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "packages/react-devtools-extensions/src/main/elementSelection.js",
+            "additions": 7,
+            "deletions": 9,
+            "status": "modified"
+          },
+          {
+            "filename": "packages/react-devtools-extensions/src/main/evalInInspectedWindow.js",
+            "additions": 116,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "packages/react-devtools-extensions/src/main/index.js",
+            "additions": 2,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "packages/react-devtools-extensions/src/main/reactPolling.js",
+            "additions": 4,
+            "deletions": 3,
+            "status": "modified"
+          },
+          {
+            "filename": "packages/react-devtools-extensions/src/main/sourceSelection.js",
+            "additions": 7,
+            "deletions": 41,
+            "status": "modified"
+          },
+          {
+            "filename": "packages/react-devtools-extensions/webpack.config.js",
+            "additions": 1,
+            "deletions": 0,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/facebook/react/pull/35208"
+      },
+      "complexity": "high",
+      "reasoning": "[AI] Spans 11 files across multiple subsystems (content scripts, background, main devtools), introduces new evaluation context handling for sandboxed environments, requires understanding of Chrome extension architecture and cross-context messaging patterns."
+    },
+    {
+      "repo": "nodejs/node",
+      "issue": {
+        "number": 61744,
+        "title": "UTF-8 character corruption in fast-utf8-stream.js via releaseWritingBuf() leads to silent data loss on partial writes",
+        "body": "### Version\n\n_No response_\n\n### Platform\n\n```text\n**Summary:** releaseWritingBuf() in lib/internal/streams/fast-utf8-stream.js incorrectly calculates string slice positions when fs.write returns a byte count that splits a multi-byte UTF-8 character, causing silent data corruption (lost characters, lone surrogates in output).\n\n**Description:** \n\nThe releaseWritingBuf function (line 896) converts bytes-written to character count using:\n\n\nn = Buffer.from(writingBuf).subarray(0, n).toString().length;\n\n\nWhen n bytes cuts through a multi-byte character, the incomplete UTF-8 sequence becomes U+FFFD (replacement character) via .toString(). This replacement character has a different .length than the original character in JS UTF-16, causing .slice(n) to cut at the wrong position:\n\n- 3-byte characters (CJK, most non-Latin): character silently dropped from output\n- 4-byte characters (emoji, supplementary CJK): lone low surrogate left in remaining buffer, producing invalid UTF-8 on next write\n\nThe file was recently added (January 2026), ported from SonicBoom. It is used as the fast path for streaming UTF-8 output.\n\n## Steps To Reproduce:\n\n1. Save this as poc.js and run with node poc.js:\n\n\n// Reproduces the releaseWritingBuf logic from lib/internal/streams/fast-utf8-stream.js lines 896-906\nfunction releaseWritingBuf(writingBuf, len, n) {\n  if (typeof writingBuf === 'string' && Buffer.byteLength(writingBuf) !== n) {\n    n = Buffer.from(writingBuf).subarray(0, n).toString().length;\n  }\n  len = Math.max(len - n, 0);\n  writingBuf = writingBuf.slice(n);\n  return { writingBuf, len };\n}\n\n// Case 1: 4-byte emoji split at byte 7 — lone surrogate\nconst r1 = releaseWritingBuf(\"hello🌍world\", 14, 7);\nconsole.log(\"Case 1 - Emoji split:\");\nconsole.log(\"  Result:\", JSON.stringify(r1.writingBuf));\nconsole.log(\"  Expected:\", JSON.stringify(\"🌍world\"));\nconsole.log(\"  First char code: 0x\" + r1.writingBuf.charCodeAt(0).toString(16));\nconsole.log(\"  Is lone surrogate:\", r1.writingBuf.charCodeAt(0) >= 0xDC00 &&\nr1.writingBuf.charCodeAt(0) <= 0xDFFF);\n\n// Case 2: 3-byte CJK char split at byte 4 — character lost\nconst r2 = releaseWritingBuf(\"abc中def\", 9, 4);\nconsole.log(\"\\nCase 2 - CJK split:\");\nconsole.log(\"  Result:\", JSON.stringify(r2.writingBuf));\nconsole.log(\"  Expected:\", JSON.stringify(\"中def\"));\nconsole.log(\"  Character 中 lost:\", !r2.writingBuf.includes(\"中\"));\n\n\n2. Output shows:\n\nCase 1 - Emoji split:\n  Result: \"\\udf0dworld\"        ← CORRUPTED (lone surrogate)\n  Expected: \"🌍world\"\n  First char code: 0xdf0d\n  Is lone surrogate: true\n\nCase 2 - CJK split:\n  Result: \"def\"                ← CHARACTER LOST\n  Expected: \"中def\"\n  Character 中 lost: true\n\n\n3. The vulnerable code is at:\nhttps://github.com/nodejs/node/blob/main/lib/internal/streams/fast-utf8-stream.js#L896-L906\n\nPartial fs.write returns are possible when writing to pipes near capacity, under disk I/O pressure, or to Docker log pipes (the exact use case mentioned in the file's comments on line 69-70).\n\nAdditional finding: Line 240 has a typo from the SonicBoom port — this._asyncDrainScheduled should be this.#asyncDrainScheduled. All other 5 references use the private field correctly. The newListener handler is effectively dead code.\n\n## Impact:\n\nSilent data corruption in output files. Applications using Utf8Stream for logging with international characters (CJK, emoji, Cyrillic) can produce corrupted output when partial writes occur. 3-byte characters are silently lost (no error emitted). 4-byte characters produce invalid UTF-8 (lone surrogates). This is especially relevant for the Docker container logging use case the file was designed for.\n\n## Supporting Material/References:\n\n- Vulnerable function: releaseWritingBuf() at https://github.com/nodejs/node/blob/main/lib/internal/streams/fast-utf8-stream.js#L896-L906\n- Typo (secondary): line 240, _asyncDrainScheduled vs #asyncDrainScheduled\n- File derived from SonicBoom (https://github.com/pinojs/sonic-boom) — the original has a similar issue but uses _ prefix consistently\n- The PoC script above is standalone and runs on any Node.js version\n```\n\n### Subsystem\n\n_No response_\n\n### What steps will reproduce the bug?\n\n1. Save the following script as `poc.js` and run it with `node poc.js`.\n\n2. The script reproduces the exact logic from\n   `lib/internal/streams/fast-utf8-stream.js` (lines 896–906),\n   specifically the `releaseWritingBuf()` function.\n\n3. The script simulates partial `fs.write()` behavior where the number\n   of bytes written splits a multi-byte UTF-8 character.\n\n4. Observe the output:\n   - When a 4-byte UTF-8 character (emoji) is split, a lone surrogate\n     remains in the output.\n   - When a 3-byte UTF-8 character (CJK) is split, the character is\n     silently dropped.\n\n5. This demonstrates incorrect string slicing caused by converting\n   byte counts to character counts via `.toString().length`.\n\n### How often does it reproduce? Is there a required condition?\n\nIt reproduces deterministically whenever `fs.write()` (or an equivalent\ninternal write) returns a byte count that splits a multi-byte UTF-8\ncharacter.\n\nThe issue is not timing-dependent or race-based. The required condition\nis a partial write that ends in the middle of a UTF-8 sequence.\n\nThis can occur when writing to pipes, sockets, or log streams under\nbackpressure (e.g. near-capacity pipes, Docker container logs, or heavy\nI/O), which is a documented and expected behavior of `fs.write()`.\n\n### What is the expected behavior? Why is that the expected behavior?\n\nThe output must always preserve valid UTF-8 and must not silently\ncorrupt data.\n\nWhen a partial write ends in the middle of a multi-byte UTF-8 character,\nthe remaining bytes for that character should be preserved and written\nin a subsequent write, rather than being dropped or converted into\nreplacement characters.\n\nThis is the expected behavior because:\n- `fs.write()` is documented to return partial byte counts.\n- UTF-8 stream handling must be byte-safe across writes.\n- Producing lone surrogates or dropping characters violates UTF-8\n  correctness and results in silent data corruption.\n\nThe current behavior breaks UTF-8 invariants and can corrupt log output\nin real-world streaming scenarios, such as container logging and pipe-\nbased streams, which this module explicitly targets.\n\n### What do you see instead?\n\nInstead of preserving valid UTF-8 output, the stream produces corrupted\nresults when a partial write splits a multi-byte character.\n\nSpecifically:\n- For 3-byte UTF-8 characters (e.g. CJK), the character is silently\n  dropped from the output with no error.\n- For 4-byte UTF-8 characters (e.g. emoji), the remaining buffer starts\n  with a lone UTF-16 surrogate, producing invalid UTF-8 on subsequent\n  writes.\n\nNo error or warning is emitted, resulting in silent data corruption in\nthe output stream.\n\n### Additional information\n\n_No response_",
+        "labels": [
+          "confirmed-bug",
+          "fs"
+        ],
+        "closedAt": "2026-03-05T19:32:56Z",
+        "commentCount": 0,
+        "url": "https://github.com/nodejs/node/issues/61744"
+      },
+      "pr": {
+        "number": 61745,
+        "additions": 340,
+        "deletions": 6,
+        "changedFiles": 2,
+        "mergedAt": "2026-03-05T19:32:54Z",
+        "fileList": [
+          {
+            "filename": "lib/internal/streams/fast-utf8-stream.js",
+            "additions": 18,
+            "deletions": 6,
+            "status": "modified"
+          },
+          {
+            "filename": "test/parallel/test-fastutf8stream-partial-write-utf8.js",
+            "additions": 322,
+            "deletions": 0,
+            "status": "added"
+          }
+        ],
+        "url": "https://github.com/nodejs/node/pull/61745"
+      },
+      "complexity": "medium",
+      "reasoning": "[AI] Requires deep understanding of UTF-8 encoding, multi-byte character handling, and stream buffer management with subtle edge cases around partial writes, but changes are localized to one core file with moderate line additions."
+    },
+    {
+      "repo": "nodejs/node",
+      "issue": {
+        "number": 61583,
+        "title": "assert.deepEqual([null], [undefined]) behavior changed in v22.16.0 (undocumented breaking change)",
+        "body": "### Version\n\nv22.16.0+ (and v24.x)\n\n### Platform\n\nAll platforms\n\n### Subsystem\n\nassert\n\n### What steps will reproduce the bug?\n\n```javascript\nconst assert = require('assert');\nassert.deepEqual([null], [undefined]);\n```\n\n### How often does it reproduce? Is there a required condition?\n\nAlways reproduces on Node >= 22.16.0. Passes on Node <= 22.15.0.\n\n### What is the expected behavior? Why is that the expected behavior?\n\nThe assertion should **pass** because:\n\n1. The [documentation](https://nodejs.org/api/assert.html#assertdeepequalactual-expected-message) states: \"Primitive values are compared with the `==` operator\"\n2. In JavaScript, `null == undefined` is `true`\n3. This worked in all Node versions prior to 22.16.0\n\n### What do you see instead?\n\n```\nAssertionError [ERR_ASSERTION]: Expected values to be loosely deep-equal:\n\n[ null ]\n\nshould loosely deep-equal\n\n[ undefined ]\n```\n\n### Root Cause\n\nPR #57619 (labeled as \"performance improvement\") introduced this change. The modification in [`objEquiv`](https://github.com/nodejs/node/pull/57619/files#diff-2da3538f1eacd02ed1b3c8f7fe3f8c0cee640295830a6f0dd4a6205326578958R785-R793) now checks `a[i] !== undefined` with **strict equality** (`===`) before calling `innerDeepEqual`, which would have used loose equality (`==`):\n\n```javascript\n// Before: called innerDeepEqual() which respects loose equality mode\nif (!innerDeepEqual(a[i], b[i], mode, memos)) { return false; }\n\n// After: checks with strict equality BEFORE calling innerDeepEqual\nif (b[i] === undefined) {\n  if (a[i] !== undefined || !hasOwn(a, i))  // <-- uses === not ==\n    return false;\n}\n```\n\nWhen comparing `[null]` vs `[undefined]`:\n- `b[0]` is `undefined` → enters first branch  \n- `a[0] !== undefined` → `null !== undefined` is `true` (strict equality)\n- Returns `false` immediately, never calls `innerDeepEqual` which would use `==`\n\n### Additional information\n\n- This is an **undocumented breaking change** in an LTS release\n- The PR was not labeled as semver-major\n- Affects anyone comparing arrays that may contain `null` values against expected `undefined` values (common with MongoDB/BSON which stores `undefined` as `null`)\n\nI understand `deepEqual` is marked as \"Legacy\" and docs warn it \"can have surprising results\", but this specific change contradicts the documented behavior and broke existing code without notice.",
+        "labels": [
+          "confirmed-bug",
+          "assert"
+        ],
+        "closedAt": "2026-02-01T13:00:18Z",
+        "commentCount": 4,
+        "url": "https://github.com/nodejs/node/issues/61583"
+      },
+      "pr": {
+        "number": 61587,
+        "additions": 15,
+        "deletions": 2,
+        "changedFiles": 2,
+        "mergedAt": "2026-02-01T13:00:17Z",
+        "fileList": [
+          {
+            "filename": "lib/internal/util/comparisons.js",
+            "additions": 3,
+            "deletions": 2,
+            "status": "modified"
+          },
+          {
+            "filename": "test/parallel/test-assert-deep.js",
+            "additions": 12,
+            "deletions": 0,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/nodejs/node/pull/61587"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Isolated bug fix in comparison logic with minimal changes (15 lines added across 2 files), test-only additions, and no architectural or cross-subsystem impact."
+    },
+    {
+      "repo": "nodejs/node",
+      "issue": {
+        "number": 61579,
+        "title": "`--build-sea` NodeJS 25.5.0: `Error: Couldn't stat executable node`",
+        "body": "I was looking at https://github.com/nodejs/node/pull/61167 since it looked really cool\n\n---\n\nsea-config.json\n```js\n{ \"main\": \"hello.js\", \"output\": \"sea.exe\" }\n```\n\nhello.js\n```js\nconsole.log(\"Hello\")\n```\n\n---\n\nNodeJS 25.5.0, Windows, Command Prompt\n```\n>node --build-sea sea-config.json\nError: Couldn't stat executable node\n```\n\n---\n\nSame command as above works in `Windows PowerShell` and `Git Bash`",
+        "labels": [
+          "confirmed-bug",
+          "single-executable"
+        ],
+        "closedAt": "2026-02-09T23:27:03Z",
+        "commentCount": 11,
+        "url": "https://github.com/nodejs/node/issues/61579"
+      },
+      "pr": {
+        "number": 61708,
+        "additions": 35,
+        "deletions": 1,
+        "changedFiles": 2,
+        "mergedAt": "2026-02-09T23:27:02Z",
+        "fileList": [
+          {
+            "filename": "src/node_sea_bin.cc",
+            "additions": 1,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "test/sea/test-build-sea-custom-argv0.js",
+            "additions": 34,
+            "deletions": 0,
+            "status": "added"
+          }
+        ],
+        "url": "https://github.com/nodejs/node/pull/61708"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Platform-specific bug fix in executable path resolution for Windows Command Prompt, involving a targeted code change in one source file and a new test case, requiring no architectural changes or deep subsystem knowledge."
+    },
+    {
+      "repo": "nodejs/node",
+      "issue": {
+        "number": 61386,
+        "title": "Incorrect result from isDeepStrictEqual on two different Sets",
+        "body": "### Version\n\n22.21.1\n\n### Platform\n\n```text\nMicrosoft Windows NT 10.0.19045.0 x64\n```\n\n### Subsystem\n\nutil\n\n### What steps will reproduce the bug?\n\nThe problem can be seen in a quick REPL session:\n\n> Welcome to Node.js v22.21.1.\n> Type \".help\" for more information.\n> \\> a = new Set([0, new Set([1, 2, 3]), new Set([4, 5, 6])])\n> Set(3) { 0, Set(3) { 1, 2, 3 }, Set(3) { 4, 5, 6 } }\n> \\> b = new Set([0, new Set([1, new Set([2, 3]), new Set([20, 30])]), new Set([4, new Set([5, 6]), new Set([50, 60])])])\n> Set(3) {\n>   0,\n>   Set(3) { 1, Set(2) { 2, 3 }, Set(2) { 20, 30 } },\n>   Set(3) { 4, Set(2) { 5, 6 }, Set(2) { 50, 60 } }\n> }\n> \\> require('util').isDeepStrictEqual(a, b)\n> true\n\n\n### How often does it reproduce? Is there a required condition?\n\nInterestingly, `require('util').isDeepStrictEqual(b, a)` returns false, as expected. Which indicates that isDeepStrictEqual is not symmetrical.\n\n### What is the expected behavior? Why is that the expected behavior?\n\nThe result should be false.\n\n### What do you see instead?\n\nI'm seeing true.\n\n### Additional information\n\n_No response_",
+        "labels": [
+          "confirmed-bug"
+        ],
+        "closedAt": "2026-01-17T01:12:47Z",
+        "commentCount": 4,
+        "url": "https://github.com/nodejs/node/issues/61386"
+      },
+      "pr": {
+        "number": 61388,
+        "additions": 26,
+        "deletions": 6,
+        "changedFiles": 2,
+        "mergedAt": "2026-01-17T01:12:46Z",
+        "fileList": [
+          {
+            "filename": "lib/internal/util/comparisons.js",
+            "additions": 11,
+            "deletions": 6,
+            "status": "modified"
+          },
+          {
+            "filename": "test/parallel/test-assert-deep.js",
+            "additions": 15,
+            "deletions": 0,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/nodejs/node/pull/61388"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] This is a targeted bug fix in the deep equality comparison logic for Sets, involving a small change (26 lines added/deleted across 2 files) with test additions, requiring no architectural changes or cross-system coordination."
+    },
+    {
+      "repo": "nodejs/node",
+      "issue": {
+        "number": 61224,
+        "title": "fs::StatFs promise crashes v8 with incorrect argument",
+        "body": "### Version\n\nv24.6.0\n\n### Platform\n\n```text\nDarwin Vesuvius 24.6.0 Darwin Kernel Version 24.6.0: Wed Oct 15 21:12:21 PDT 2025; root:xnu-11417.140.69.703.14~1/RELEASE_X86_64 x86_64\n```\n\n### Subsystem\n\nfs\n\n### What steps will reproduce the bug?\n\nRun the following code:\n```\nimport * as fs from 'node:fs/promises'\nfs.statfs()\n```\nOther arguments such as `null`, `undefined`, `4` or `Symbol()` crash as well.\n\n### How often does it reproduce? Is there a required condition?\n\nIt crashes 100% consistently.\n\n### What is the expected behavior? Why is that the expected behavior?\n\nA thrown error, like maybe an `ERR_INVALID_ARG_TYPE` or something similar.\n\n### What do you see instead?\n\n```\n\n  #  node[50047]: void node::fs::StatFs(const FunctionCallbackInfo<Value> &) at ../src/node_file.cc:1228\n  #  Assertion failed: (*path) != nullptr\n\n----- Native stack trace -----\n\n 1: 0x1094142b1 node::Assert(node::AssertionInfo const&) [/usr/local/Cellar/node/24.6.0/bin/node]\n 2: 0x1080c1e39 node::fs::StatFs(v8::FunctionCallbackInfo<v8::Value> const&) [/usr/local/Cellar/node/24.6.0/bin/node]\n 3: 0x108bf644d Builtins_CallApiCallbackGeneric [/usr/local/Cellar/node/24.6.0/bin/node]\n\n----- JavaScript stack trace -----\n\n1: statfs (node:internal/fs/promises:1050:13)\n2: file:///Users/dada/a.js:4:4\n3: run (node:internal/modules/esm/module_job:371:25)\n\n\nfish: Job 1, 'node a.js' terminated by signal SIGABRT (Abort)\n```\n\n### Additional information\n\n_No response_",
+        "labels": [
+          "confirmed-bug",
+          "fs"
+        ],
+        "closedAt": "2026-01-03T03:01:35Z",
+        "commentCount": 2,
+        "url": "https://github.com/nodejs/node/issues/61224"
+      },
+      "pr": {
+        "number": 61230,
+        "additions": 13,
+        "deletions": 1,
+        "changedFiles": 2,
+        "mergedAt": "2026-01-03T03:01:34Z",
+        "fileList": [
+          {
+            "filename": "lib/internal/fs/promises.js",
+            "additions": 1,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "test/parallel/test-fs-promises-statfs-validate-path.js",
+            "additions": 12,
+            "deletions": 0,
+            "status": "added"
+          }
+        ],
+        "url": "https://github.com/nodejs/node/pull/61230"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] This is a straightforward argument validation fix for a single function, affecting only 2 files with 13 lines added and a simple null/type check pattern that is common in Node.js fs module."
+    },
+    {
+      "repo": "nodejs/node",
+      "issue": {
+        "number": 61104,
+        "title": "With `\"type\": \"commonjs\"`, `#!/usr/bin/env node` file does not execute but returns success and no error messages when the file is ESM",
+        "body": "### Version\n\nv24.11.1\n\n### Platform\n\n```text\nLinux academic 6.1.0-32-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.129-1 (2025-03-06) x86_64 GNU/Linux\n```\n\n### Subsystem\n\n_No response_\n\n### What steps will reproduce the bug?\n\nCreate a `package.json` containing only `{}`. Create the following file `script` and chmod it executable. (Note that it's ESM, not CommonJS.)\n\n```\n#!/usr/bin/env node\nconsole.log('script STARTED')\nimport { version } from 'node:process'\nconsole.log(version)\n```\nIn that same directory, run the script and observe that it produces the expected output and \"success\" exit code:\n```\n$ ./script ; echo \"===== exitcode=$?\"\nscript STARTED\nv24.11.1\n===== exitcode=0\n```\n\nNow add to your `package.json` the line `\"type\": \"commonjs\"`. Run the script again, and note that it produces no output at all (neither what it is expected to print nor any errors), and yet still exits with exit code 0, indicating success:\n```\n$ ./script ; echo \"===== exitcode=$?\"\n===== exitcode=0\n```\n\nIf you feel like it, you can replace the ESM import with `const { version } = require('node:process')` and see that it does work as in the first example run above.\n\n### How often does it reproduce? Is there a required condition?\n\nAlways reproduces.\n\n### What is the expected behavior? Why is that the expected behavior?\n\nI expect the `\"type\": \"commonjs\"` case to do two things, in order of importance:\n\n1. Exit with a non-zero exit code (indicating \"failure\") because it didn't run. This would help avoid the especially insidious situation where it's a script running in a build system that's expected to do something important but produce no output. (Ask me how I know this is \"insidious.\" :-))\n\n2. Print some sort of error to stderr indicating that the script can't be run, ideally including some information about the configuration that's preventing this. (In this case, I guess, it's that the auto-detection of ESM vs. CommonJS based on file contents is disabled due to the `\"type\": \"commonjs\"` in `package.json`?)\n\n### What do you see instead?\n\nSee output in reproduction above.\n\n### Additional information\n\n`node --print-all-exceptions ./script >exceptions.txt 2>&1` may have some useful information in its 1240 lines. I've attached the output from my machine as [`exceptions.txt`](https://github.com/user-attachments/files/24227368/exceptions.txt).\n\nAlso, possibly #49444 \"Feature: ESM in executable files\" may have some relation to this, though I've not read through it carefully (it's a long read).",
+        "labels": [
+          "confirmed-bug",
+          "loaders"
+        ],
+        "closedAt": "2026-02-16T14:59:00Z",
+        "commentCount": 2,
+        "url": "https://github.com/nodejs/node/issues/61104"
+      },
+      "pr": {
+        "number": 61600,
+        "additions": 42,
+        "deletions": 0,
+        "changedFiles": 6,
+        "mergedAt": "2026-02-16T14:58:59Z",
+        "fileList": [
+          {
+            "filename": "lib/internal/modules/cjs/loader.js",
+            "additions": 9,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "test/es-module/test-extensionless-esm-type-commonjs.js",
+            "additions": 19,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "test/fixtures/es-modules/extensionless-esm-commonjs/package.json",
+            "additions": 3,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "test/fixtures/es-modules/extensionless-esm-commonjs/script",
+            "additions": 4,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "test/fixtures/es-modules/extensionless-esm-module/package.json",
+            "additions": 3,
+            "deletions": 0,
+            "status": "added"
+          },
+          {
+            "filename": "test/fixtures/es-modules/extensionless-esm-module/script",
+            "additions": 4,
+            "deletions": 0,
+            "status": "added"
+          }
+        ],
+        "url": "https://github.com/nodejs/node/pull/61600"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] This is a targeted bug fix for ESM/CommonJS type detection that adds a null check and validation logic in one core file (42 lines added) with corresponding test fixtures and test file, requiring no architectural changes or cross-system coordination."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 33048,
+        "title": "WebGPU: Shadows crash on Android — TEXTURE_COMPARE fallback incomplete",
+        "body": "## Description\n\nShadows are broken on Android Chrome WebGPU. The app crashes with two distinct WGSL errors:\n\n1. **`textureSampleCompare(texture_depth_2d, sampler, vec2<f32>, f32)` — wrong sampler type**\n2. **\"Filtering sampler incompatible with non-filtering sampler binding\"**\n\nThis results in `Invalid RenderPipeline` errors and no rendering.\n\n## Root Cause\n\nThree.js already correctly disables `TEXTURE_COMPARE` on Android in `WebGPUBackend.js`:\n\n```js\nconst compatibilityTextureCompare = /Android/.test(navigator.userAgent) === false;\n```\n\nHowever, three places in the shadow pipeline don't respect this flag:\n\n### Issue 1: `ShadowNode.setupShadow()` — LinearFilter without hasCompatibility check\n\n```js\n// ShadowNode.js line ~424\nif ( shadowMapType === PCFShadowMap || shadowMapType === PCFSoftShadowMap ) {\n    depthTexture.minFilter = LinearFilter;  // ← Always set, even on Android\n    depthTexture.magFilter = LinearFilter;\n}\n```\n\nOn Android, `TEXTURE_COMPARE` is false, so WebGPU creates a **non-filtering sampler binding**. But the depth texture has `LinearFilter` set, which creates a **filtering sampler**. This mismatch causes: *\"Filtering sampler incompatible with non-filtering sampler binding\"*.\n\n### Issue 2: `ShadowNode.setupRenderTarget()` uses `LessEqualCompare`\n\n```js\n// ShadowNode.js line ~397\ndepthTexture.compareFunction = builder.renderer.reversedDepthBuffer\n    ? GreaterEqualCompare : LessEqualCompare;\n```\n\n### Issue 3: `TextureNode` fallback only handles `LessCompare`\n\n```js\n// TextureNode.js line ~408\nif ( this.value.compareFunction === null || this.value.compareFunction === LessCompare ) {\n    compareStepNode = this.compareNode;  // ← Only LessCompare gets the step() fallback\n}\n```\n\nShadowNode sets `LessEqualCompare` (or `GreaterEqualCompare` with reversed depth), but TextureNode's fallback only supports `LessCompare`. So on Android, the fallback fails → `textureSampleCompare` is emitted in WGSL → but the sampler is non-comparison → WGSL error.\n\n## Suggested Fix\n\n### 1. `ShadowNode.js` — Add `hasTextureCompare` guard\n\n```diff\n setupRenderTarget( shadow, builder ) {\n\n     const depthTexture = new DepthTexture( shadow.mapSize.width, shadow.mapSize.height );\n     depthTexture.name = 'ShadowDepthTexture';\n-    depthTexture.compareFunction = builder.renderer.reversedDepthBuffer ? GreaterEqualCompare : LessEqualCompare;\n+    depthTexture.compareFunction = builder.renderer.reversedDepthBuffer ? GreaterEqualCompare : LessCompare;\n\n     const shadowMap = builder.createRenderTarget( shadow.mapSize.width, shadow.mapSize.height );\n```\n\n```diff\n     const shadowMapType = renderer.shadowMap.type;\n\n-    if ( shadowMapType === PCFShadowMap || shadowMapType === PCFSoftShadowMap ) {\n+    const hasTextureCompare = builder.renderer.hasCompatibility === undefined\n+        || builder.renderer.hasCompatibility( 'textureCompare' );\n+\n+    if ( ( shadowMapType === PCFShadowMap || shadowMapType === PCFSoftShadowMap ) && hasTextureCompare ) {\n\n         depthTexture.minFilter = LinearFilter;\n         depthTexture.magFilter = LinearFilter;\n```\n\n### 2. `PointShadowNode.js` — Same guard\n\n```diff\n setupRenderTarget( shadow, builder ) {\n\n     const depthTexture = new CubeDepthTexture( shadow.mapSize.width );\n     depthTexture.name = 'PointShadowDepthTexture';\n-    depthTexture.compareFunction = builder.renderer.reversedDepthBuffer ? GreaterEqualCompare : LessEqualCompare;\n+    depthTexture.compareFunction = builder.renderer.reversedDepthBuffer ? GreaterEqualCompare : LessCompare;\n+\n+    const hasTextureCompare = builder.renderer.hasCompatibility === undefined\n+        || builder.renderer.hasCompatibility( 'textureCompare' );\n+\n+    if ( ! hasTextureCompare ) {\n+        depthTexture.minFilter = NearestFilter;\n+        depthTexture.magFilter = NearestFilter;\n+    }\n\n     const shadowMap = builder.createCubeRenderTarget( shadow.mapSize.width );\n```\n\n### 3. `TextureNode.js` — Support all compare functions in fallback\n\n```diff\n-import { Compatibility, IntType, LessCompare, NearestFilter, UnsignedIntType } from '../../constants.js';\n+import { Compatibility, IntType, LessCompare, LessEqualCompare, GreaterCompare, GreaterEqualCompare, NearestFilter, UnsignedIntType } from '../../constants.js';\n```\n\n```diff\n-if ( this.value.compareFunction === null || this.value.compareFunction === LessCompare ) {\n+if ( this.value.compareFunction === null\n+    || this.value.compareFunction === LessCompare\n+    || this.value.compareFunction === LessEqualCompare\n+    || this.value.compareFunction === GreaterCompare\n+    || this.value.compareFunction === GreaterEqualCompare ) {\n     compareStepNode = this.compareNode;\n```\n\nAnd the step direction must be correct for Greater functions:\n\n```diff\n if ( compareStepSnippet !== null ) {\n-    snippet = step( expression( compareStepSnippet, 'float' ), expression( snippet, nodeType ) ).build( builder, nodeType );\n+    const compareFn = this.value.compareFunction;\n+    if ( compareFn === GreaterEqualCompare || compareFn === GreaterCompare ) {\n+        snippet = step( expression( snippet, nodeType ), expression( compareStepSnippet, 'float' ) ).build( builder, nodeType );\n+    } else {\n+        snippet = step( expression( compareStepSnippet, 'float' ), expression( snippet, nodeType ) ).build( builder, nodeType );\n+    }\n }\n```\n\n## How it works after the fix\n\n| | Desktop | Android |\n|---|---|---|\n| `hasCompatibility(TEXTURE_COMPARE)` | `true` | `false` |\n| Shadow depth compare | Native `textureSampleCompare` | `textureSample` + `step()` fallback |\n| Depth texture filter | `LinearFilter` (hardware PCF) | `NearestFilter` (no filtering) |\n| Shadow quality | Soft PCF shadows | Hard-edge shadows (still correct) |\n\n## Environment\n\n- **Three.js version**: r183 (dev branch also affected)\n- **Device**: Android Chrome (multiple devices — Pixel, Samsung)\n- **Renderer**: WebGPU\n- **Shadow type**: `PCFSoftShadowMap`\n\n## Reproduction\n\nAny scene with `castShadow = true` on a light and `PCFSoftShadowMap` will crash on Android Chrome with WebGPU enabled.",
+        "labels": [
+          "Bug",
+          "WebGPU"
+        ],
+        "closedAt": "2026-02-23T10:32:37Z",
+        "commentCount": 8,
+        "url": "https://github.com/mrdoob/three.js/issues/33048"
+      },
+      "pr": {
+        "number": 33050,
+        "additions": 19,
+        "deletions": 6,
+        "changedFiles": 2,
+        "mergedAt": "2026-02-23T10:32:35Z",
+        "fileList": [
+          {
+            "filename": "src/nodes/accessors/TextureNode.js",
+            "additions": 16,
+            "deletions": 4,
+            "status": "modified"
+          },
+          {
+            "filename": "src/nodes/lighting/ShadowNode.js",
+            "additions": 3,
+            "deletions": 2,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/33050"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Straightforward fallback implementation fix across 2 files (19 lines added) addressing a known platform limitation with conditional sampler type selection, no architectural changes or complex state management required."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 33032,
+        "title": "BUG : BezierInterpolant silently falls back to linear — mixer overwrites tangent settings",
+        "body": "\n## Description\n\nWhen using `InterpolateBezier` with the animation system, the `BezierInterpolant` ends up doing linear interpolation because the `AnimationAction` constructor overwrites `interpolant.settings` with a shared ending-behavior object, wiping out the `inTangents` and `outTangents` data.\n\nThe interpolant is created correctly with tangent data, but by the time it runs, that data is gone.\n\n## Reproduction\n\n```javascript\nconst track = new THREE.KeyframeTrack('.position[x]',\n  new Float32Array([0, 1.5, 3]),\n  new Float32Array([-2, 2, -2])\n);\n\ntrack.settings = {\n  inTangents: new Float32Array([0, -2, 0.75, -4, 2.25, 4]),\n  outTangents: new Float32Array([0.75, 4, 2.25, -4, 3, -2])\n};\n\ntrack.setInterpolation(THREE.InterpolateBezier);\n\nconst clip = new THREE.AnimationClip('BezierMove', 3, [track]);\nconst mixer = new THREE.AnimationMixer(mesh);\nconst action = mixer.clipAction(clip);\naction.play();\n\n// Check what the interpolant actually got:\nconsole.log(action._interpolants[0].settings);\n// → { endingStart: 2400, endingEnd: 2400 }\n// inTangents and outTangents are gone\n```\n\n## What happens\n\nIn the `AnimationAction` constructor:\n\n```javascript\nconst interpolantSettings = {\n    endingStart: ZeroCurvatureEnding,\n    endingEnd: ZeroCurvatureEnding\n};\n\nfor ( let i = 0; i !== nTracks; ++ i ) {\n    const interpolant = tracks[ i ].createInterpolant( null );\n    interpolants[ i ] = interpolant;\n    interpolant.settings = interpolantSettings;  // replaces the entire settings object\n}\n```\n\n1. `tracks[i].createInterpolant(null)` calls `InterpolantFactoryMethodBezier`, which creates the interpolant and copies tangent data onto `interpolant.settings`\n2. The very next line replaces `interpolant.settings` with `interpolantSettings` (a shared object containing only `endingStart`/`endingEnd`)\n3. `BezierInterpolant.interpolate_()` later checks `settings.inTangents` / `settings.outTangents`, finds them undefined, and falls back to linear\n\nThis doesn't affect the other interpolants because they don't store any data in `settings`.\n\n## Workaround\n\nManually re-inject tangent data after `clipAction()`:\n\n```javascript\nconst action = mixer.clipAction(clip);\n\naction._interpolants.forEach((interpolant, i) => {\n  const s = clip.tracks[i].settings;\n  if (s?.inTangents) {\n    interpolant.settings.inTangents = s.inTangents;\n    interpolant.settings.outTangents = s.outTangents;\n  }\n});\n```\n\n## Version\n\nr183\n\n### Live example\n\n* [Issue Example](https://jsfiddle.net/Kazuma_Satou/wpgua3n1/3/)\n* [Workaround Example](https://jsfiddle.net/Kazuma_Satou/ka6r4wys/2/)\n\n\n\n\n### Version\n\nr183\n\n",
+        "labels": [
+          "Bug"
+        ],
+        "closedAt": "2026-02-20T14:23:11Z",
+        "commentCount": 1,
+        "url": "https://github.com/mrdoob/three.js/issues/33032"
+      },
+      "pr": {
+        "number": 33033,
+        "additions": 10,
+        "deletions": 1,
+        "changedFiles": 1,
+        "mergedAt": "2026-02-20T14:23:10Z",
+        "fileList": [
+          {
+            "filename": "src/animation/AnimationAction.js",
+            "additions": 10,
+            "deletions": 1,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/33033"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Isolated bug fix in a single file affecting settings object initialization, requiring minimal changes (10 lines added) without touching multiple subsystems or requiring architectural changes."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 33030,
+        "title": "DisplayP3 and EffectComposer doesn't work together",
+        "body": "### Description\n\nAdding EffectComposer to the wide gamut example breaks the output colorspace.\n\n<img width=\"797\" height=\"810\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/f36ffeb7-f0e5-4c7d-b7cf-0d96e7dced86\" />\nExpected result: the displayp3 texture should be visible on both sides of the slider.\n\nAs far as I can tell `OutputPass` should figure out the colorspace from the renderer by itself here:\nhttps://github.com/mrdoob/three.js/blob/80587e802b6104083c56f70d9d4275620b4d7915/examples/jsm/postprocessing/OutputPass.js#L99\nand I can't find any colorspace settings on EffectComposer.\n\n### Reproduction steps\n\n1. Clone this branch: https://github.com/Doerge/three.js/tree/bug-report-display-p3-effect-composer\n2. Serve the root and open the http://localhost:8000/examples/webgl_test_wide_gamut.html example that adds EffectComposer to the existing wide gamut example.\n3. Both sides of the slider should correctly show the wide gamut texture on a wide gamut display.\n\n\n### Code\n\n```js\n[...]\n\t\t\t\trenderer = new THREE.WebGLRenderer( { antialias: true } );\n[...]\n\t\t\t\trenderer.setAnimationLoop( animate );\n\n\t\t\t\tcomposer = new EffectComposer( renderer );\n\t\t\t\t// adding some passes\n\t\t\t\tconst renderPass = new RenderPass( sceneR, camera );\n\t\t\t\tcomposer.addPass( renderPass );\n\t\t\t\tconst glitchPass = new GlitchPass();\n\t\t\t\tcomposer.addPass( glitchPass );\n\t\t\t\tconst outputPass = new OutputPass()\n\t\t\t\tcomposer.addPass( outputPass );\n\n\t\t\t\tcontainer.appendChild( renderer.domElement );\n[...]\n\t\t\tfunction animate() {\n\n\t\t\t\trenderer.setScissor( 0, 0, sliderPos, window.innerHeight );\n\t\t\t\trenderer.render( sceneL, camera );\n\n\t\t\t\trenderer.setScissor( sliderPos, 0, window.innerWidth, window.innerHeight );\n\t\t\t\tcomposer.render( sceneR, camera );\n\n\t\t\t}\n\n```\n\n\n### Live example\n\nSorry I can't figure out how to load the textures in jsfiddle. \n\n\n### Screenshots\n\n_No response_\n\n### Version\n\n0.183.0\n\n### Device\n\nDesktop\n\n### Browser\n\nChrome\n\n### OS\n\nMacOS",
+        "labels": [
+          "Bug",
+          "WebGLRenderer"
+        ],
+        "closedAt": "2026-02-21T10:29:59Z",
+        "commentCount": 2,
+        "url": "https://github.com/mrdoob/three.js/issues/33030"
+      },
+      "pr": {
+        "number": 33036,
+        "additions": 3,
+        "deletions": 4,
+        "changedFiles": 2,
+        "mergedAt": "2026-02-21T10:29:58Z",
+        "fileList": [
+          {
+            "filename": "src/renderers/WebGLRenderer.js",
+            "additions": 1,
+            "deletions": 2,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/webgl/WebGLPrograms.js",
+            "additions": 2,
+            "deletions": 2,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/33036"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Minimal code changes (7 lines across 2 files) fixing a colorspace detection issue in OutputPass by reading from renderer state rather than requiring manual configuration."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 33022,
+        "title": "Regression r183: TSL computeKernel with StorageTexture + textureLoad() invalid WGSL (works in r182)",
+        "body": "### Description\n\nAfter upgrading from r182 to r183 all of my TSL cellular automata compute shaders stopped working and started giving invalid wgsl errors.\n\n```text\nError while parsing WGSL: :47:13 error: no matching call to 'textureLoad(texture_2d<f32>, vec2<i32>)'\n\n39 candidate functions:\n • 'textureLoad(texture: texture_external  ✗ , coords: vec2<C>  ✓ ) -> vec4<f32>' where:\n      ✓  'C' is 'i32' or 'u32'\n • 'textureLoad(texture: texture_2d<T>  ✓ , coords: vec2<C>  ✓ , level: L  ✗ ) -> vec4<T>' where:\n      ✓  'T' is 'f32', 'i32' or 'u32'\n      ✓  'C' is 'i32' or 'u32'\n      ✗  'L' is 'i32' or 'u32'\n • 'textureLoad(texture: texture_storage_2d<F, R>  ✗ , coords: vec2<C>  ✓ ) -> vec4<f32>' where:\n      ✓  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8unorm', 'r8snorm', 'rg8unorm', 'rg8snorm', 'bgra8unorm', 'rgba8unorm', 'rgba8snorm', 'r16unorm', 'r16snorm', 'rg16unorm', 'rg16snorm', 'rgba16unorm', 'rgba16snorm', 'r16float', 'rg16float', 'rgba16float', 'r32float', 'rg32float', 'rgba32float', 'rgb10a2unorm' or 'rg11b10ufloat'\n      ✗  'R' is 'read'\n • 'textureLoad(texture: texture_storage_2d<F, R>  ✗ , coords: vec2<C>  ✓ ) -> vec4<i32>' where:\n      ✓  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8sint', 'rg8sint', 'rgba8sint', 'r16sint', 'rg16sint', 'rgba16sint', 'r32sint', 'rg32sint' or 'rgba32sint'\n      ✗  'R' is 'read'\n • 'textureLoad(texture: texture_storage_2d<F, R>  ✗ , coords: vec2<C>  ✓ ) -> vec4<u32>' where:\n      ✓  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8uint', 'rg8uint', 'r16uint', 'rg16uint', 'rgba8uint', 'rgba16uint', 'r32uint', 'rg32uint', 'rgba32uint' or 'rgb10a2uint'\n      ✗  'R' is 'read'\n • 'textureLoad(texture: texture_storage_2d<F, RW>  ✗ , coords: vec2<C>  ✓ ) -> vec4<f32>' where:\n      ✓  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8unorm', 'r8snorm', 'rg8unorm', 'rg8snorm', 'bgra8unorm', 'rgba8unorm', 'rgba8snorm', 'r16unorm', 'r16snorm', 'rg16unorm', 'rg16snorm', 'rgba16unorm', 'rgba16snorm', 'r16float', 'rg16float', 'rgba16float', 'r32float', 'rg32float', 'rgba32float', 'rgb10a2unorm' or 'rg11b10ufloat'\n      ✗  'RW' is 'read_write'\n • 'textureLoad(texture: texture_storage_2d<F, RW>  ✗ , coords: vec2<C>  ✓ ) -> vec4<i32>' where:\n      ✓  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8sint', 'rg8sint', 'rgba8sint', 'r16sint', 'rg16sint', 'rgba16sint', 'r32sint', 'rg32sint' or 'rgba32sint'\n      ✗  'RW' is 'read_write'\n • 'textureLoad(texture: texture_storage_2d<F, RW>  ✗ , coords: vec2<C>  ✓ ) -> vec4<u32>' where:\n      ✓  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8uint', 'rg8uint', 'r16uint', 'rg16uint', 'rgba8uint', 'rgba16uint', 'r32uint', 'rg32uint', 'rgba32uint' or 'rgb10a2uint'\n      ✗  'RW' is 'read_write'\n • 'textureLoad(texture: texture_storage_1d<F, R>  ✗ , coords: C  ✗ ) -> vec4<f32>' where:\n      ✗  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8unorm', 'r8snorm', 'rg8unorm', 'rg8snorm', 'bgra8unorm', 'rgba8unorm', 'rgba8snorm', 'r16unorm', 'r16snorm', 'rg16unorm', 'rg16snorm', 'rgba16unorm', 'rgba16snorm', 'r16float', 'rg16float', 'rgba16float', 'r32float', 'rg32float', 'rgba32float', 'rgb10a2unorm' or 'rg11b10ufloat'\n      ✗  'R' is 'read'\n • 'textureLoad(texture: texture_storage_1d<F, R>  ✗ , coords: C  ✗ ) -> vec4<i32>' where:\n      ✗  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8sint', 'rg8sint', 'rgba8sint', 'r16sint', 'rg16sint', 'rgba16sint', 'r32sint', 'rg32sint' or 'rgba32sint'\n      ✗  'R' is 'read'\n • 'textureLoad(texture: texture_storage_1d<F, R>  ✗ , coords: C  ✗ ) -> vec4<u32>' where:\n      ✗  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8uint', 'rg8uint', 'r16uint', 'rg16uint', 'rgba8uint', 'rgba16uint', 'r32uint', 'rg32uint', 'rgba32uint' or 'rgb10a2uint'\n      ✗  'R' is 'read'\n • 'textureLoad(texture: texel_buffer<F, R>  ✗ , coords: C  ✗ ) -> vec4<f32>' where:\n      ✗  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8unorm', 'r8snorm', 'rg8unorm', 'rg8snorm', 'bgra8unorm', 'rgba8unorm', 'rgba8snorm', 'r16unorm', 'r16snorm', 'rg16unorm', 'rg16snorm', 'rgba16unorm', 'rgba16snorm', 'r16float', 'rg16float', 'rgba16float', 'r32float', 'rg32float', 'rgba32float', 'rgb10a2unorm' or 'rg11b10ufloat'\n      ✗  'R' is 'read'\n • 'textureLoad(texture: texel_buffer<F, R>  ✗ , coords: C  ✗ ) -> vec4<i32>' where:\n      ✗  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8sint', 'rg8sint', 'rgba8sint', 'r16sint', 'rg16sint', 'rgba16sint', 'r32sint', 'rg32sint' or 'rgba32sint'\n      ✗  'R' is 'read'\n • 'textureLoad(texture: texel_buffer<F, R>  ✗ , coords: C  ✗ ) -> vec4<u32>' where:\n      ✗  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8uint', 'rg8uint', 'r16uint', 'rg16uint', 'rgba8uint', 'rgba16uint', 'r32uint', 'rg32uint', 'rgba32uint' or 'rgb10a2uint'\n      ✗  'R' is 'read'\n • 'textureLoad(texture: texture_storage_1d<F, RW>  ✗ , coords: C  ✗ ) -> vec4<f32>' where:\n      ✗  'C' is 'i32' or 'u32'\n      ✗  'F' is 'r8unorm', 'r8snorm', 'rg8unorm', 'rg8snorm', 'bgra8unorm', 'rgba8unorm', 'rgba8snorm', 'r16unorm', 'r16snorm', 'rg16unorm', 'rg16snorm', 'rgba16unorm', 'rgba16snorm', 'r16float', 'rg16float', 'rgba16float', 'r32float', 'rg32float', 'rgba32float', 'rgb10a2unorm' or 'rg11b10ufloat'\n      ✗  'RW' is 'read_write'\n • 'textureLoad(texture: texture_storage_1d<F, RW>  ✗ , coords: C  ✗ )\n```\nI did see there were some changes to how storageTextures worked in r183 with https://github.com/mrdoob/three.js/pull/32734 but even when editing my shaders to use the storageTexture node and .load functions the error persists. So overall quite a bit confused here, the official webgpu_compute_texture_pingpong example still seems to work in r183 but my code breaks so it doesn't seem that storageTexture setups in r183 are broken completely just something about my specific use case. I've attatched a live example of my Game of Life compute shader setup showing that it works in r182 but breaks in r183. Interestingly, in r183 whilst it can atleast still draw to the screen when using no filters, if setting Nearest Filtering the scene breaks completely giving\n\n```Text\n[\"THREE.[Invalid ShaderModule \\\"fragment\\\"] is invalid.\n - While validating fragment stage ([Invalid ShaderModule \\\"fragment\\\"], entryPoint: \\\"main\\\").\n - While validating fragment state.\n - While calling [Device].CreateRenderPipeline([RenderPipelineDescriptor \\\"\\\"renderPipeline_MeshBasicNodeMaterial_17\\\"\\\"]).\n\"]\n```\n\n\n\n### Reproduction steps\n\nSee example.\n\n\n### Code\n\nSee example.\n\n### Live example\nr182:\n- https://jsfiddle.net/ce8mrb09/\n\nr183:\n- https://jsfiddle.net/fobz0qaj/1/\n\n### Screenshots\n\n_No response_\n\n### Version\n\nr183\n\n### Device\n\nDesktop\n\n### Browser\n\nChrome\n\n### OS\n\nWindows",
+        "labels": [
+          "Bug",
+          "Regression",
+          "WebGPU"
+        ],
+        "closedAt": "2026-02-20T06:12:58Z",
+        "commentCount": 4,
+        "url": "https://github.com/mrdoob/three.js/issues/33022"
+      },
+      "pr": {
+        "number": 33029,
+        "additions": 58,
+        "deletions": 135,
+        "changedFiles": 5,
+        "mergedAt": "2026-02-20T06:12:57Z",
+        "fileList": [
+          {
+            "filename": "src/nodes/accessors/StorageTextureNode.js",
+            "additions": 22,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/webgpu/nodes/WGSLNodeBuilder.js",
+            "additions": 36,
+            "deletions": 21,
+            "status": "modified"
+          },
+          {
+            "filename": "test/unit/src/nodes/accessors/StorageTextureNode.tests.js",
+            "additions": 0,
+            "deletions": 39,
+            "status": "removed"
+          },
+          {
+            "filename": "test/unit/src/renderers/webgpu/nodes/WGSLNodeBuilder.tests.js",
+            "additions": 0,
+            "deletions": 69,
+            "status": "removed"
+          },
+          {
+            "filename": "test/unit/three.source.unit.js",
+            "additions": 0,
+            "deletions": 6,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/33029"
+      },
+      "complexity": "medium",
+      "reasoning": "[AI] Requires understanding TSL shader compilation, WGSL code generation, and the specific textureLoad() API changes between WebGPU versions, affecting multiple renderer components and node types across 5 files."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 33003,
+        "title": "backgroundRotation not aligning with how rotation works on other objects",
+        "body": "### Description\n\nWhen rotating the background with backgroundRotation, it does not behave like other objects. I created an AxesHelper and copy the rotation from that to the background. When only rotating about x, y or z, helper and background stay aligned. But when combining rotations, they stop being aligned. I suspect that the Euler order is not considered somewhere.\n\n### Reproduction steps\n\nOpen the example. Use QWEASD keys to rotate both AxesHelper and background and see how they stop being aligned as soon as you rotate about two axes.\nEDIT: The key mapping in the live example has changed, see [here](https://github.com/mrdoob/three.js/issues/33003#issuecomment-3904512630)\n\n### Code\n\n```html\n<!DOCTYPE html>\n<html>\n\n<head>\n    <script type=\"importmap\">\n    {\n      \"imports\": {\n        \"three\": \"https://cdn.jsdelivr.net/npm/three@v0.182.0/build/three.module.js\",\n        \"three/addons/\": \"https://cdn.jsdelivr.net/npm/three@v0.182.0/examples/jsm/\"\n      }\n    }\n    </script>\n</head>\n\n<body style=\"margin:0; overflow: hidden\">\n    <script type=\"module\">\n        import * as THREE from 'three'\n\n        const renderer = new THREE.WebGLRenderer()\n        renderer.setSize(window.innerWidth, window.innerHeight)\n        document.body.appendChild(renderer.domElement)\n\n        const scene = new THREE.Scene()\n\n        const camera = new THREE.PerspectiveCamera(120, window.innerWidth / window.innerHeight, 0.1, 100)\n        camera.position.set(0, 1, 3)\n        camera.lookAt(0, 0, 0)\n\n        const axes = new THREE.AxesHelper(1)\n        scene.add(axes)\n\n        const loader = new THREE.TextureLoader()\n        loader.load(\n            'https://i.sstatic.net/J6tcu.png',\n            (tex) => {\n                tex.mapping = THREE.EquirectangularReflectionMapping\n                scene.background = tex\n                animate()\n            }\n        )\n\n        window.addEventListener('resize', () => {\n            camera.aspect = window.innerWidth / window.innerHeight\n            camera.updateProjectionMatrix()\n            renderer.setSize(window.innerWidth, window.innerHeight)\n        })\n\n        let keyDown = {}\n        window.keyDown = keyDown\n        window.addEventListener('keydown', e => keyDown[e.code] = true);\n        window.addEventListener('keyup', e => keyDown[e.code] = false);\n\n        function animate() {\n            requestAnimationFrame(animate)\n            axes.rotation.x += (!!keyDown[\"KeyA\"] - !!keyDown[\"KeyD\"]) * 0.02\n            axes.rotation.y += (!!keyDown[\"KeyW\"] - !!keyDown[\"KeyS\"]) * 0.02\n            axes.rotation.z += (!!keyDown[\"KeyQ\"] - !!keyDown[\"KeyE\"]) * 0.02\n            scene.backgroundRotation.copy(axes.rotation)\n            renderer.render(scene, camera)\n        }\n    </script>\n</body>\n\n</html>\n```\n\n\n### Live example\n\nhttps://mqnc.github.io/threebackgroundrotationbug/\n\n### Screenshots\n\n_No response_\n\n### Version\n\nr182\n\n### Device\n\nDesktop\n\n### Browser\n\nChrome\n\n### OS\n\nLinux",
+        "labels": [
+          "Bug"
+        ],
+        "closedAt": "2026-03-02T10:39:32Z",
+        "commentCount": 5,
+        "url": "https://github.com/mrdoob/three.js/issues/33003"
+      },
+      "pr": {
+        "number": 33077,
+        "additions": 22,
+        "deletions": 31,
+        "changedFiles": 7,
+        "mergedAt": "2026-03-02T10:39:31Z",
+        "fileList": [
+          {
+            "filename": "src/renderers/shaders/ShaderChunk/envmap_common_pars_fragment.glsl.js",
+            "additions": 0,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/shaders/ShaderChunk/envmap_fragment.glsl.js",
+            "additions": 1,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/shaders/ShaderLib.js",
+            "additions": 0,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/shaders/ShaderLib/backgroundCube.glsl.js",
+            "additions": 1,
+            "deletions": 2,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/shaders/UniformsLib.js",
+            "additions": 0,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/webgl/WebGLBackground.js",
+            "additions": 13,
+            "deletions": 13,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/webgl/WebGLMaterials.js",
+            "additions": 7,
+            "deletions": 12,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/33077"
+      },
+      "complexity": "medium",
+      "reasoning": "[AI] Requires understanding rotation/Euler angle handling across shader system and WebGL renderer components, spanning 7 files with coordinated changes to fix alignment behavior, but changes are relatively localized (only 53 net lines) without architectural restructuring."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32986,
+        "title": "GLTFLoader ImageBitMapLoader with Cache enabled causes memory leak",
+        "body": "### Description\n\nWhen using the GLTFLoader with a glTF that has textures, and with the three.js Cache enabled its possible to make the memory consumption grow until the client runs out of memory.\n\nThis seems to be because when the texture is loader the URL is randomly generated, therefore a Cache hit will never happen.\n\nFirst load (5 image-bitmaps created):\n<img width=\"2326\" height=\"842\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/22448ca8-1ce9-4909-b2cc-85861595884c\" />\n\nLoading a different model:\n<img width=\"2363\" height=\"1064\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/7091b7d5-5207-4478-92a4-f34f84d32851\" />\n\nSecond load of the helmet (10 image-bitmaps created):\n<img width=\"2380\" height=\"1183\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/faa00761-e2d4-453e-a259-734aa3137f9c\" />\n\nafter many loads:\n<img width=\"2560\" height=\"1400\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/1148e0db-b9e6-43f8-b977-a9ad6bb9801b\" />\n\nI first observed this on mobile as it only takes a few model changes for the memory limit to be reached and for the site to crash.\n\n### Reproduction steps\n\n1. Using webgl_loader_gltf.html add line ```THREE.Cache.enabled = true;```\n2. Load the Damaged Helmet and take a heap snapshot\n3. Load a different model e.g. the Cube\n4. Go back to the Damaged Helmet and take another heap snapshot, and see that the Cache map has grown in size\n\n\n### Screenshots\n\n_No response_\n\n### Version\n\nr182\n\n### Device\n\nall\n\n### Browser\n\nall\n\n### OS\n\nall",
+        "labels": [
+          "Bug",
+          "Loaders"
+        ],
+        "closedAt": "2026-02-11T10:23:01Z",
+        "commentCount": 5,
+        "url": "https://github.com/mrdoob/three.js/issues/32986"
+      },
+      "pr": {
+        "number": 32989,
+        "additions": 28,
+        "deletions": 0,
+        "changedFiles": 1,
+        "mergedAt": "2026-02-11T10:23:00Z",
+        "fileList": [
+          {
+            "filename": "src/loaders/Cache.js",
+            "additions": 28,
+            "deletions": 0,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32989"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Isolated fix adding 28 lines to a single cache file to prevent memory leaks from randomly generated URLs, straightforward logic addition without cross-component dependencies."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32985,
+        "title": "GaussianBlur Node lags behind one frame when used with Reflector",
+        "body": "### Description\n\nWhen using the GaussianBlur Node to blur the texture of a reflector (for example to simulate roughness), the blur causes the texture to be one frame behind. This is especially visible with fast and/or user-controlled movement. \n\n### Reproduction steps\n\n1. Create Reflector\n2. Pass Reflector to GaussianBlur\n3. Pass result of this to outputNode of Material of geometry that shows the reflection\n\n\n### Code\n\n```js\nimport { gaussianBlur } from 'https://esm.sh/three/addons/tsl/display/GaussianBlurNode.js';\nimport {\n  vec3, vec4,\n  output, reflector,\n  } from 'https://esm.sh/three/tsl';\nimport {\n  Scene, PerspectiveCamera, WebGPURenderer,\n  CircleGeometry, PlaneGeometry, Mesh,\n  MeshBasicNodeMaterial, MeshPhongNodeMaterial,\n  DoubleSide, Object3D,\n  Vector3} from 'https://esm.sh/three/webgpu';\nconsole.log(\"checkmate\", gaussianBlur, reflector)\n\nObject3D.DEFAULT_UP = new Vector3(0, 0, 1)\n\nconst scene = new Scene();\nconst camera = new PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );\n\nconst renderer = new WebGPURenderer({antialias: true, alpha: true});\nrenderer.setSize( window.innerWidth, window.innerHeight );\ndocument.body.appendChild( renderer.domElement );\n\ncamera.position.y = -12\ncamera.position.z = 15;\ncamera.rotation.x = 0.6\n\nconst rimGeometry = new CircleGeometry(1.85, 128)\nconst rimMaterial = new MeshBasicNodeMaterial({ side: DoubleSide })\n\nrimMaterial.colorNode = vec4(0.2, 1.0, 0.5, 1.0)\nconst rimMesh = new Mesh(rimGeometry, rimMaterial)\n\nrimMesh.position.z = 0.1\n\nscene.add(rimMesh)\n\nconst groundReflector = reflector({ resolutionScale: 1, generateMipmaps: true, bounces: false, samples: 4 });\nconst planeGeo = new PlaneGeometry( 300.1, 300.1 );\n\nconst blurDirect = gaussianBlur(groundReflector, 1, 1).mul(0.4)\nconst planeMaterial = new MeshPhongNodeMaterial( {\n  \t\t\t\t\tcolorNode: vec3(1.0)\n  \t\t\t\t} )\nplaneMaterial.outputNode = blurDirect //groundReflector\n\nconst planeBottom = new Mesh( planeGeo, planeMaterial );\n\nplaneBottom.position.z = - 1.5;\nplaneBottom.add( groundReflector.target );\n\nscene.add(planeBottom)\n\n\n\nfunction resize() {\n\n\tconst width = window.innerWidth;\n\tconst height = window.innerHeight;\n\n\tcamera.aspect = width / height;\n\tcamera.updateProjectionMatrix();\n\n\trenderer.setSize( width, height );\n  //renderer.render( scene, camera )\n};\n\nwindow.onresize = resize \n\nasync function testRender() {\n  await renderer.init()\n  let frame=0;\n  window.setInterval(()=>{\n    frame++;\n    camera.position.x=Math.sin(frame/2)*7;\n    renderer.render( scene, camera )\n  }, 1000)\n}\n\ntestRender()\n```\n\n\n### Live example\n\nhttps://codepen.io/NoxDawnsong/pen/zxBMzvm\n\n### Screenshots\n\n_No response_\n\n### Version\n\nr182\n\n### Device\n\nDesktop\n\n### Browser\n\nChrome\n\n### OS\n\nLinux",
+        "labels": [
+          "Bug",
+          "Nodes"
+        ],
+        "closedAt": "2026-02-11T02:51:30Z",
+        "commentCount": 3,
+        "url": "https://github.com/mrdoob/three.js/issues/32985"
+      },
+      "pr": {
+        "number": 32991,
+        "additions": 51,
+        "deletions": 18,
+        "changedFiles": 11,
+        "mergedAt": "2026-02-11T02:51:29Z",
+        "fileList": [
+          {
+            "filename": "examples/jsm/tsl/display/GaussianBlurNode.js",
+            "additions": 11,
+            "deletions": 2,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/jsm/tsl/display/PixelationPassNode.js",
+            "additions": 3,
+            "deletions": 3,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/screenshots/webgpu_backdrop_water.jpg",
+            "additions": 0,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/screenshots/webgpu_skinning_instancing.jpg",
+            "additions": 0,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/screenshots/webgpu_volume_lighting.jpg",
+            "additions": 0,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/screenshots/webgpu_volume_lighting_rectarea.jpg",
+            "additions": 0,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/screenshots/webgpu_volume_lighting_traa.jpg",
+            "additions": 0,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "src/nodes/core/Node.js",
+            "additions": 4,
+            "deletions": 2,
+            "status": "modified"
+          },
+          {
+            "filename": "src/nodes/core/NodeBuilder.js",
+            "additions": 13,
+            "deletions": 3,
+            "status": "modified"
+          },
+          {
+            "filename": "src/nodes/display/PassNode.js",
+            "additions": 20,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "test/e2e/puppeteer.js",
+            "additions": 0,
+            "deletions": 7,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32991"
+      },
+      "complexity": "medium",
+      "reasoning": "[AI] Requires understanding of the TSL (Three.js Shading Language) node system architecture, frame timing/synchronization logic across multiple rendering passes, and involves changes to core node infrastructure (Node.js, NodeBuilder.js, PassNode.js) plus display nodes, affecting state management between frames."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32971,
+        "title": "TSL: `BufferNode.bufferCount` is not a number when accessed after being created by `instancedArray(...)`",
+        "body": "### Description\n\nhttps://github.com/mrdoob/three.js/blob/8d547cdb02b541a0db50a02f5ec53e6d63f80887/src/nodes/accessors/BufferNode.js#L55\n\nhttps://github.com/mrdoob/three.js/blob/8d547cdb02b541a0db50a02f5ec53e6d63f80887/src/nodes/accessors/BufferNode.js#L58\n\nAfter creating a store with instancedArray the value of `fooStore.bufferCount` is not a number but a TypedArray \n\n\n### Reproduction steps\n\n1. create a store `fooStore = instancedArray(springs, \"uint2\")`\n2. console.log( typeof fooStore.bufferCount  == 'number')\n3. it will show false\n\n\n### Code\n\nSee fiddle's example ( console )\n\n\n### Live example\n\nhttps://jsfiddle.net/43cnqe28/\n\n\n### Screenshots\n\n_No response_\n\n### Version\n\n182\n\n### Device\n\nDesktop\n\n### Browser\n\nChrome\n\n### OS\n\nLinux",
+        "labels": [
+          "Bug"
+        ],
+        "closedAt": "2026-02-08T21:08:38Z",
+        "commentCount": 0,
+        "url": "https://github.com/mrdoob/three.js/issues/32971"
+      },
+      "pr": {
+        "number": 32977,
+        "additions": 1,
+        "deletions": 1,
+        "changedFiles": 1,
+        "mergedAt": "2026-02-08T21:08:37Z",
+        "fileList": [
+          {
+            "filename": "src/nodes/accessors/Arrays.js",
+            "additions": 1,
+            "deletions": 1,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32977"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Single line change in one file to fix a type mismatch where bufferCount is incorrectly assigned a TypedArray instead of a number."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32939,
+        "title": "Batched mesh does not work correctly with wifreframe mode",
+        "body": "### Description\n\nHello,\n\nI've noticed a problem with BatchedMesh in wireframe mode with WebGPU.\nThe edges don't align when the material state is changed to `wireframe=true`.\n\nThe issue seems to come from the fact that BatchedMesh always assumes a triangle topology, while wireframe=true requires a line-list pipeline in WebGPU.\nSince WebGPU pipelines are immutable, the current implementation ends up using an invalid topology.\n\n\n### Reproduction steps\n\nTry this in the `createMaterial` function:\n`material = new THREE.MeshBasicNodeMaterial({wireframe:true})`\nor :\nmesh.material.wireframe=true\n\n### Code\n\n```js\n// code goes here\n```\n\n\n### Live example\nhttps://threejs.org/examples/#webgpu_mesh_batch\n\n\n### Screenshots\n\n![Image](https://github.com/user-attachments/assets/f816b4f8-cdee-40da-b511-270b844bcf69)\n\nYou can see the lines are broken in the bottom image\n\n### Version\n\nr182\n\n### Device\n\n_No response_\n\n### Browser\n\n_No response_\n\n### OS\n\n_No response_",
+        "labels": [
+          "Bug"
+        ],
+        "closedAt": "2026-02-04T15:11:07Z",
+        "commentCount": 3,
+        "url": "https://github.com/mrdoob/three.js/issues/32939"
+      },
+      "pr": {
+        "number": 32948,
+        "additions": 27,
+        "deletions": 12,
+        "changedFiles": 2,
+        "mergedAt": "2026-02-04T15:11:05Z",
+        "fileList": [
+          {
+            "filename": "src/objects/BatchedMesh.js",
+            "additions": 17,
+            "deletions": 5,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/webgl/WebGLGeometries.js",
+            "additions": 10,
+            "deletions": 7,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32948"
+      },
+      "complexity": "medium",
+      "reasoning": "[AI] Requires understanding WebGPU pipeline immutability constraints, topology state management in BatchedMesh, and coordinating changes across renderer and object layers, but the fix itself is localized to 2 files with modest line changes."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32937,
+        "title": "Scene.environment does not work with multiple WebGPURenderers",
+        "body": "### Description\n\nWhen using two `WebGPURenderer`s to render the same scene, `Scene.environment` only works in one renderer. The environment map in the other renderer seems to be a black image.\n\n### Reproduction steps\n\n1. Run the attached fiddle or code.\n2. There will be 2 canvases (each with its own `WebGPURenderer`). The environment map shows up correctly in the left canvas, but the right canvas contains a black sphere.\n\n### Code\n\n```js\nimport * as THREE from 'threeGPU';\n\nimport { OrbitControls } from 'three/addons/controls/OrbitControls.js';\n\nimport { HDRLoader } from 'three/addons/loaders/HDRLoader.js';\n\nconst scene = new THREE.Scene();\n\nconst camera = new THREE.PerspectiveCamera( 70, window.innerWidth / 2 / window.innerHeight, 0.1, 100 );\ncamera.position.set( 0, 0, 2.5 );\n\nconst geometry = new THREE.IcosahedronGeometry( 1, 15 );\nconst sphereMaterial = new THREE.MeshStandardNodeMaterial({metalness: 1, roughness: 0});\nconst sphereMesh = new THREE.Mesh( geometry, sphereMaterial );\nscene.add( sphereMesh );\n\nconst hdrLoader = new HDRLoader();\nhdrLoader.load(\n    \"https://threejs.org/examples/textures/memorial.hdr\",\n    (envMap) => {\n        envMap.mapping = THREE.EquirectangularReflectionMapping;\n        scene.environment = envMap;\n    },\n    undefined,\n    (error) => {\n        console.warn(\"Error loading environment map. \" + error);\n    },\n);\n\nconst addCanvas = () => {\n    const renderer = new THREE.WebGPURenderer();\n    renderer.setPixelRatio(window.devicePixelRatio);\n    renderer.setSize(window.innerWidth / 2, window.innerHeight);\n    renderer.setClearColor(new THREE.Color(\"white\"));\n    renderer.setAnimationLoop(() => {\n        controls.update();\n        renderer.render(scene, camera);\n    });\n    \n    const canvas = renderer.domElement;\n\n    const controls = new OrbitControls( camera, canvas );\n    controls.minDistance = 1.5;\n    controls.maxDistance = 6;\n\n    document.body.appendChild(canvas);\n\n    return canvas;\n}\n\nconst canvas1 = addCanvas();\nconst canvas2 = addCanvas();\n\ncanvas1.width = canvas2.width = window.innerWidth / 2;\ncanvas1.height = canvas2.height = window.innerHeight;\ncanvas1.style.position = canvas2.style.position = 'absolute';\ncanvas1.style.left = '0';\ncanvas2.style.left = `${window.innerWidth / 2}px`;\n```\n\n\n### Live example\n\n* [jsfiddle](https://jsfiddle.net/x6mc175p/3/)\n\n\n### Screenshots\n\n<img width=\"1590\" height=\"594\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/42b3fee2-90ac-4524-84d7-26c0ca7cf39b\" />\n\n### Version\n\nr181\n\n### Device\n\nDesktop\n\n### Browser\n\nChrome\n\n### OS\n\nMacOS",
+        "labels": [
+          "Bug"
+        ],
+        "closedAt": "2026-02-03T11:31:22Z",
+        "commentCount": 0,
+        "url": "https://github.com/mrdoob/three.js/issues/32937"
+      },
+      "pr": {
+        "number": 32941,
+        "additions": 28,
+        "deletions": 3,
+        "changedFiles": 1,
+        "mergedAt": "2026-02-03T11:31:21Z",
+        "fileList": [
+          {
+            "filename": "src/nodes/lighting/EnvironmentNode.js",
+            "additions": 28,
+            "deletions": 3,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32941"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Single file change with 31 total lines modified in a lighting node component, likely addressing a texture binding or state management issue specific to WebGPURenderer without requiring architectural changes."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32926,
+        "title": "NodeMaterialObserver: setAttribute()/setIndex() crashes on second mesh when materials share same properties",
+        "body": "### Description\n\nIf two meshes share the same material properties, calling setIndex() on one of them causes a crash in certain scenarios.\n\nThe bug mechanism is purely about object identity vs version:\n* Old attribute: id=123, version=1 (after previous needsUpdate)\n* New attribute: id=456, version=0 → needsUpdate=true → version=1\n* equals() compares: storedVersion(1) === newVersion(1) → match!\n* New attribute object (id=456) never gets a GPU buffer\n\nIt seems this is the same underlying issue in caching mechanism as in #32903. When an object has both an identity and a version (.version), the cache lookup must check both. The current implementation only checks .version, so when setAttribute() replaces an attribute with a new object that happens to have the same version number, the cache incorrectly treats it as unchanged.\n\nThe core of this bug appears to be in `NodeMaterialObserver`\n\n### Reproduction steps\n\n1.  Open WebGL jsfiddle https://jsfiddle.net/gsoL6q7r/\n2. Notice that it works - plane geometry updates every 30 frames\n3. Open WebGPU jsfiddle (exact same code) https://jsfiddle.net/tqpvn0r4/\n4. Notice that it crashes\n\n\n### Code\n\n```js\n// Two meshes with identical material properties (cloned or same values)\nmesh1 = new Mesh(geometry1, material.clone());\nmesh2 = new Mesh(geometry2, material.clone());\n\n// Update geometry on mesh2 using documented API\nmesh2.geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );\nmesh2.geometry.setAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );\nmesh2.geometry.setAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );\nmesh2.geometry.setIndex( new THREE.BufferAttribute( new Uint16Array( indices ), 1 ) );\n\nrenderer.render(scene, camera);  // CRASH: \"setIndexBuffer parameter 1 is not of type GPUBuffer\"```\n```\n\n### Live example\n\n* [jsfiddle-dev WebGLRenderer](https://jsfiddle.net/gsoL6q7r/)\n* [jsfiddle-dev WebGPURenderer](https://jsfiddle.net/tqpvn0r4/)",
+        "labels": [
+          "Bug",
+          "WebGPU"
+        ],
+        "closedAt": "2026-02-02T09:00:06Z",
+        "commentCount": 0,
+        "url": "https://github.com/mrdoob/three.js/issues/32926"
+      },
+      "pr": {
+        "number": 32933,
+        "additions": 9,
+        "deletions": 3,
+        "changedFiles": 1,
+        "mergedAt": "2026-02-02T09:00:04Z",
+        "fileList": [
+          {
+            "filename": "src/materials/nodes/manager/NodeMaterialObserver.js",
+            "additions": 9,
+            "deletions": 3,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32933"
+      },
+      "complexity": "medium",
+      "reasoning": "[AI] Requires understanding state management across material/mesh/GPU buffer lifecycle and version tracking logic to fix object identity vs equivalence bug, though the fix is localized to one file and relatively small in scope."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32882,
+        "title": "WebGL viewport / scissors not working correctly with PostProcessing in WebGPURenderer",
+        "body": "### Description\n\nThere seem to be issues when\n1. `WebGPURenderer` is used in WebGL mode\n2. A `PostProcessing` pipeline is used\n3. `setScissor` / `setViewport` is setup\n\nIn below fiddle, I created a scene that should\n\n1. Clear the whole screen with red\n2. Draw a fullscreen blue quad, where the draw call is using a `setScissor` / `setViewport` to scissor it to the center of the screen\n\nUnder WebGPU everything is working as expected:\n\n<img width=\"585\" height=\"303\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/65ac867b-7df5-42a3-ba23-32cdac7941b8\" />\n\n\nUnder WebGL (`forceWebGL = true`) the screen becomes white and the rectangle gets much smaller:\n\n<img width=\"585\" height=\"303\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d65e0106-b00c-4d9f-ada2-4d1a3b7217a4\" />\n\nThis only happens if a `PostProcessing` pipeline is used\n\n### Reproduction steps\n\n1. Open the fiddle\n2. See the correct rendering under WebGPU\n3. Switch `forceWebGL` to `true`\n4. See the wrong rendering under WebGL\n\n### Code\n\nSee below fiddle\n\n\n### Live example\n\n* [jsfiddle-latest-release WebGPURenderer](https://jsfiddle.net/TobiasNoell/gryntx16/)\n\n\n### Screenshots\n\n_No response_\n\n### Version\n\nr182\n\n### Device\n\nDesktop\n\n### Browser\n\nChrome\n\n### OS\n\nWindows",
+        "labels": [
+          "Bug",
+          "WebGPU"
+        ],
+        "closedAt": "2026-01-29T18:32:42Z",
+        "commentCount": 5,
+        "url": "https://github.com/mrdoob/three.js/issues/32882"
+      },
+      "pr": {
+        "number": 32883,
+        "additions": 30,
+        "deletions": 2,
+        "changedFiles": 1,
+        "mergedAt": "2026-01-29T18:32:41Z",
+        "fileList": [
+          {
+            "filename": "src/renderers/webgl-fallback/WebGLBackend.js",
+            "additions": 30,
+            "deletions": 2,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32883"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Isolated fix in a single WebGL backend file with minimal line changes (30 added, 2 deleted) addressing viewport/scissors state management without touching architecture or multiple subsystems."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32876,
+        "title": "Line3: distanceSqToLine3 function does not return correct closest points when intersecting",
+        "body": "### Description\n\nI was trying to use this function to determine intersections earlier and ran into this - I had two lines that were intersecting and was trying to get the intersection point like so:\n\n```js\nconst dist = line0.distanceSqToLine3( line1, intersectionPoint );\nif ( dist === 0 ) {\n\n  // do something with intersection point\n\n}\n```\n\nHowever I was seeing that \"intersectionPoint\" was always set to zero when that couldn't be the case. I did see that if you pass a _second_ argument into the function then that one will be set to the correct value - but I would expect the values to be identical in that case.\n\n### Reproduction steps\n\n1. Construct 2 Line3s that intersect\n2. Call \"distanceSqToLine3\"\n3. See that distance returns 0 but two different \"closest points\" are returned when they should be the same\n\n\n### Code\n\n```js\nconst l0 = new THREE.Line3();\nconst l1 = new THREE.Line3();\nconst c0 = new THREE.Vector3();\nconst c1 = new THREE.Vector3();\n\nl0.start.set( 1, 0, 0 );\nl0.end.set( - 1, 0, 0 );\n\nl1.start.set( 0.5, 0, 1 );\nl1.end.set( 0.5, 0, - 1);\n\nconst dist = l0.distanceSqToLine3( l1, c0, c1 );\n\nconsole.log( dist, c0, c1 );\n\n// logs\n// dist: 0\n// c0: 0, 0, 0\n// c1: 0.5, 0, 0\n\n// Note: c0 and c1 should be the same\n```\n\n\n### Live example\n\nRun above code in console on https://threejs.org/docs/.\n\n### Screenshots\n\n_No response_\n\n### Version\n\n182\n\n### Device\n\n_No response_\n\n### Browser\n\n_No response_\n\n### OS\n\n_No response_",
+        "labels": [
+          "Bug"
+        ],
+        "closedAt": "2026-01-28T19:37:46Z",
+        "commentCount": 1,
+        "url": "https://github.com/mrdoob/three.js/issues/32876"
+      },
+      "pr": {
+        "number": 32878,
+        "additions": 3,
+        "deletions": 5,
+        "changedFiles": 1,
+        "mergedAt": "2026-01-28T19:37:45Z",
+        "fileList": [
+          {
+            "filename": "src/math/Line3.js",
+            "additions": 3,
+            "deletions": 5,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32878"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Isolated bug fix in a single math utility function with minimal line changes (3 added, 5 deleted) affecting only one file."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32870,
+        "title": "WebGPU environment map shading differs from WebGL in WebGPURenderer",
+        "body": "### Description\n\nThere are significant differences in WebGPU vs. WebGL environment map shading in `WebGPURenderer` when using a `MeshPhysicalNodeMaterial` with a `normalNode` that is served by a `THREE.DataTexture` and a `roughnessNode` of 1.\n\nWebGL shading is the correct one that considers the normals, WebGPU shading seems to ignore those completely.\n\nWebGL: (`forceWebGL: true`)\n<img width=\"334\" height=\"243\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/6c899862-b7d6-417d-8798-568321b64d36\" />\n\nWebGPU: (`forceWebGL: false`)\n<img width=\"334\" height=\"243\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/78981bc3-4807-443a-9476-42199f96d155\" />\n\n### Reproduction steps\n\n1. Open attached fiddle on a device that supports WebGPU\n2. Normals are ignored during shading\n3. Toggle `forceWebGL` to true\n4. Normals are considered during shading\n\n### Code\n\nSee attached fiddle\n\n### Live example\n\n* [jsfiddle-latest-release WebGPURenderer](https://jsfiddle.net/TobiasNoell/jrafyk3n/12/)\n\n\n### Screenshots\n\n_No response_\n\n### Version\n\nr182\n\n### Device\n\nDesktop\n\n### Browser\n\nChrome\n\n### OS\n\nWindows",
+        "labels": [
+          "Bug",
+          "WebGPU"
+        ],
+        "closedAt": "2026-01-28T19:20:37Z",
+        "commentCount": 12,
+        "url": "https://github.com/mrdoob/three.js/issues/32870"
+      },
+      "pr": {
+        "number": 32877,
+        "additions": 4,
+        "deletions": 4,
+        "changedFiles": 1,
+        "mergedAt": "2026-01-28T19:20:36Z",
+        "fileList": [
+          {
+            "filename": "src/nodes/accessors/Normal.js",
+            "additions": 4,
+            "deletions": 4,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32877"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Small isolated fix affecting only normal accessor logic in a single file with minimal line changes, likely addressing a calculation or reference bug in environment map shading without architectural changes."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32865,
+        "title": "Editor: WebGPU renderer shows only one mesh normal in NORMALS shading mode",
+        "body": "### Description\n\nWhen project settings use `renderer: WebGPU`, switching the viewport shading mode to NORMALS only renders the normal of a single mesh. All other meshes appear completely black.\n\n### Reproduction steps\n\n1. Open editor, set `project > renderer` to WebGPU\n\n2. Add multiple meshes and a light (or load from this [project.json](https://github.com/user-attachments/files/24880870/project.1.json))\n\n3. Switch viewport shading mode to NORMALS\n\n4. Only one mesh is shaded with normals; all other meshes appear black:\n\n \nhttps://github.com/user-attachments/assets/26cc83c1-e0ec-45f8-9118-c35204e8e585\n\n### Version\n\ndev\n\n",
+        "labels": [
+          "Bug",
+          "WebGPU"
+        ],
+        "closedAt": "2026-01-30T10:46:18Z",
+        "commentCount": 1,
+        "url": "https://github.com/mrdoob/three.js/issues/32865"
+      },
+      "pr": {
+        "number": 32896,
+        "additions": 3,
+        "deletions": 3,
+        "changedFiles": 1,
+        "mergedAt": "2026-01-30T10:46:17Z",
+        "fileList": [
+          {
+            "filename": "src/renderers/common/Renderer.js",
+            "additions": 3,
+            "deletions": 3,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32896"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Isolated bug fix with minimal code changes (3 lines added/deleted in a single file), typical of a straightforward configuration or state management correction in the renderer."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32741,
+        "title": "BatchedMesh needs a cleanup method to remove all geometries",
+        "body": "### Description\n\nBatchedMesh needs a good cleanup method.  After inspecting its code I'm fairly sure it's not possible to do a cleanup using only getGeometryIdAt / deleteGeometry / optimize methods.  \n\nThe optimize method is supposed to free up unused space and shift _nextVertexStart and _nextIndexStart values, but there is a corner case when all geometries are deleted, mentioned variables are not reset to zero.\n\nAs a result it won't add new geometries at some point throwing an error 'THREE.BatchedMesh: Reserved space request exceeds the maximum buffer size.'\n\nTo workaround this issue I can set these variables to zero, but they are supposed to be private. Or never have all geometries removed before calling optimize.\n\n### Reproduction steps\n\n1. Initialize BatchedMesh with some limits on vertex, index and instance count.\n2. Fill the batch with one or more geometries. Then clear it and call optimize.\n3. Repeat a number of times until error is thrown.\n\n\n### Code\n\n```js\nimport * as THREE from 'three';\nimport { BatchedMesh } from 'three';\n\nlet renderer, scene, camera;\n\ninit();\n\nfunction init() {\n\n    // renderer\n    renderer = new THREE.WebGLRenderer();\n    renderer.setSize( window.innerWidth, window.innerHeight );\n    renderer.setPixelRatio( window.devicePixelRatio );\n    renderer.setAnimationLoop( animate );\n    document.body.appendChild( renderer.domElement );\n\n    // scene\n    scene = new THREE.Scene();\n\n    // geometry\n    const geometry = new THREE.SphereGeometry( 5, 12, 8 );\n    \n    // material\n    const material = new THREE.MeshPhongMaterial( {\n        color: 0x00ffff, \n        flatShading: true,\n        transparent: true,\n        opacity: 0.7,\n    } );\n\n    const MAX_INSTANCES = 128;\n    const MAX_VERTEX = 512;\n    const MAX_INDEX = 512 * 4;\n    const batch = new BatchedMesh(MAX_INSTANCES, MAX_VERTEX, MAX_INDEX, material);\n\n    const clearBatch = () => {\n        for (let i = batch.instanceCount - 1; i >= 0; --i) {\n            const geomId = batch.getGeometryIdAt(i);\n            batch.deleteGeometry(geomId);\n        }\n        batch.optimize();\n\n        // TODO bug in threejs BatchedMesh: if I remove all geometries, the internal variables of BatchedMesh nextIndexStart and nextVertexStart do not change\n        // const bugfix = batch;\n        // bugfix._nextIndexStart = 0\n        // bugfix._nextVertexStart = 0\n    }\n\n    const fillBatch = () => {\n        for (let i = 0; i < 2; ++i) {\n            const geometryId = batch.addGeometry(geometry);\n            batch.addInstance(geometryId);\n        }\n    }\n    \n    // cycle until batched mesh complains\n    for (let i = 0; i<128; ++i) {\n        clearBatch();\n        try {\n            fillBatch();\n        } catch (e) {\n            console.error('Attempt ', i);\n            throw e;\n        }\n    }\n}\n\nfunction animate() {\n    // renderer.render( scene, camera );\n}\n```\n\n\n### Live example\n\nhttps://jsfiddle.net/yde6Lk2g/2/\n\n### Screenshots\n\n_No response_\n\n### Version\n\nr182\n\n### Device\n\n_No response_\n\n### Browser\n\n_No response_\n\n### OS\n\n_No response_",
+        "labels": [
+          "Bug"
+        ],
+        "closedAt": "2026-01-14T08:59:05Z",
+        "commentCount": 2,
+        "url": "https://github.com/mrdoob/three.js/issues/32741"
+      },
+      "pr": {
+        "number": 32744,
+        "additions": 2,
+        "deletions": 4,
+        "changedFiles": 1,
+        "mergedAt": "2026-01-14T08:59:03Z",
+        "fileList": [
+          {
+            "filename": "src/objects/BatchedMesh.js",
+            "additions": 2,
+            "deletions": 4,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32744"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Isolated bug fix in a single file with minimal code changes (2 added, 4 deleted lines) to reset state variables in a cleanup method, requiring only local understanding of BatchedMesh internals."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32716,
+        "title": "TSL: Nested structs produce invalid GLSL",
+        "body": "### Description\n\nTesting out what the GLSL fallback behaviour was like with WebGPU and found it produces invalid GLSL when using nested structs. The inner struct is transpiled to be defined after the outer definition. Happens everywhere when `forceWebGL: true` is set on the renderer (or when browser does not support WebGPU). The online GLSL -> TSL transpiler can convert the invalid GLSL back into TSL code without any issue.\n\n### Reproduction steps\n\n1. Paste the snippet into the editor (or run the fiddle)\n2. Open the console\n\n\n### Code\n\n```js\nconst { struct, float, vec3, vec4 } = await import( 'three/tsl' );\n\nconst Inner = struct({ id: 'float', position: 'vec3' }, 'Inner')\nconst Outer = struct({ id: 'float', inner: 'Inner' }, 'Outer')\nconst value = Outer(float(1), Inner(float(2), vec3(1,0,1)))\n\noutput = vec4(value.get('inner').get('position'), value.get('id'));\n```\n\n\n### Live example\n\nhttps://jsfiddle.net/b9re1uc8/6/\n\n### Screenshots\n\n```\nthree.core.js:1854 THREE.THREE.WebGLProgram: Shader Error 0 - VALIDATE_STATUS false\n\nProgram Info Log: Fragment shader is not compiled.\n\u0000\n\nFRAGMENT\n\nERROR: 0:39: 'Inner' : syntax error\n\u0000\n\n  34: \n  35: layout( location = 0 ) out vec4 fragColor;\n  36: \n  37: struct Outer {\n  38: \tfloat id;\n> 39: \tInner inner;\n  40: };\n  41: \n  42: struct Inner {\n  43: \tfloat id;\n  44: \tvec3 position;\n  45: };\nerror @ three.core.js:1854\n_logProgramError @ three.webgpu.js:69457\n_completeCompile @ three.webgpu.js:69492\ncheckStatus @ three.webgpu.js:69343\nrequestAnimationFrame\ncheckStatus @ three.webgpu.js:69348\nrequestAnimationFrame\ncheckStatus @ three.webgpu.js:69348\nrequestAnimationFrame\ncheckStatus @ three.webgpu.js:69348\n(anonymous) @ three.webgpu.js:69354\ncreateRenderPipeline @ three.webgpu.js:69336\n_getRenderPipeline @ three.webgpu.js:31162\ngetForRender @ three.webgpu.js:31006\n_createObjectPipeline @ three.webgpu.js:60376\nrenderObject @ three.webgpu.js:60271\n_renderObjects @ three.webgpu.js:60095\ncompileAsync @ three.webgpu.js:58052\nawait in compileAsync\ngetShaderAsync @ three.webgpu.js:57806\nbuild @ webgpu_tsl_editor:190\nawait in build\n_callOnChange @ lil-gui.module.min.js:8\nsetValue @ lil-gui.module.min.js:8\n(anonymous) @ lil-gui.module.min.js:8\nthree.webgpu.js:65166 WebGL: INVALID_OPERATION: useProgram: program not valid\nuseProgram @ three.webgpu.js:65166\n_completeCompile @ three.webgpu.js:69496\ncheckStatus @ three.webgpu.js:69343\nrequestAnimationFrame\ncheckStatus @ three.webgpu.js:69348\nrequestAnimationFrame\ncheckStatus @ three.webgpu.js:69348\nrequestAnimationFrame\ncheckStatus @ three.webgpu.js:69348\n(anonymous) @ three.webgpu.js:69354\ncreateRenderPipeline @ three.webgpu.js:69336\n_getRenderPipeline @ three.webgpu.js:31162\ngetForRender @ three.webgpu.js:31006\n_createObjectPipeline @ three.webgpu.js:60376\nrenderObject @ three.webgpu.js:60271\n_renderObjects @ three.webgpu.js:60095\ncompileAsync @ three.webgpu.js:58052\nawait in compileAsync\ngetShaderAsync @ three.webgpu.js:57806\nbuild @ webgpu_tsl_editor:190\nawait in build\n_callOnChange @ lil-gui.module.min.js:8\nsetValue @ lil-gui.module.min.js:8\n(anonymous) @ lil-gui.module.min.js:8\nthree.webgpu.js:70400 WebGL: INVALID_OPERATION: uniformBlockBinding: program not linked\n_setupBindings @ three.webgpu.js:70400\n_completeCompile @ three.webgpu.js:69502\ncheckStatus @ three.webgpu.js:69343\nrequestAnimationFrame\ncheckStatus @ three.webgpu.js:69348\nrequestAnimationFrame\ncheckStatus @ three.webgpu.js:69348\nrequestAnimationFrame\ncheckStatus @ three.webgpu.js:69348\n(anonymous) @ three.webgpu.js:69354\ncreateRenderPipeline @ three.webgpu.js:69336\n_getRenderPipeline @ three.webgpu.js:31162\ngetForRender @ three.webgpu.js:31006\n_createObjectPipeline @ three.webgpu.js:60376\nrenderObject @ three.webgpu.js:60271\n_renderObjects @ three.webgpu.js:60095\ncompileAsync @ three.webgpu.js:58052\nawait in compileAsync\ngetShaderAsync @ three.webgpu.js:57806\nbuild @ webgpu_tsl_editor:190\nawait in build\n_callOnChange @ lil-gui.module.min.js:8\nsetValue @ lil-gui.module.min.js:8\n(anonymous) @ lil-gui.module.min.js:8\nthree.webgpu.js:70400 WebGL: INVALID_OPERATION: uniformBlockBinding: program not linked\n```\n\n### Version\n\nr182.0\n\n### Device\n\nMobile, Desktop\n\n### Browser\n\nSafari\n\n### OS\n\nMacOS",
+        "labels": [
+          "Bug",
+          "TSL"
+        ],
+        "closedAt": "2026-01-11T20:39:24Z",
+        "commentCount": 0,
+        "url": "https://github.com/mrdoob/three.js/issues/32716"
+      },
+      "pr": {
+        "number": 32724,
+        "additions": 15,
+        "deletions": 0,
+        "changedFiles": 1,
+        "mergedAt": "2026-01-11T20:39:23Z",
+        "fileList": [
+          {
+            "filename": "src/nodes/core/StructNode.js",
+            "additions": 15,
+            "deletions": 0,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32724"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Isolated bug fix in a single file with minimal code changes (15 lines) to reorder struct definitions in GLSL output, requiring no architectural changes or cross-component coordination."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32708,
+        "title": "WebGPURenderer: VSM artifacts with Safari.",
+        "body": "### Description\n\nA couple examples:\n\n- https://discourse.threejs.org/t/shadow-banding-with-webgpurenderer-vsmshadowmap/89017/3\n- https://discourse.threejs.org/t/hide-line-from-shadow/53656\n\n### Reproduction steps\n\n\n1. Here's the webgpu VSM example with some debug helpers enabled, and also the spotlight frustum is tighter to more closely encompass the example: https://jsfiddle.net/s79ack12\n   No issue so yet:\n   <img height=\"250\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/a46705f8-792b-4566-b75b-a9a0a5d0e901\" />\n3. When we tighten up the spotlight's `shadow.focus`, we can see a line at the edge of the spotlight's shadow map area: https://jsfiddle.net/zm53Ladu (line 87)\n   This is not typical shadow acne, as it happens exclusively along the edge of the shadow map area:\n   <img height=\"250\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/1605b679-2613-4391-a414-f5c3848beba7\" />\n3. A workaround is to patch `THREE.ShadowNode.prototype.setupShadowFilter` to set shadow pixels to `1` inside of a border around the shadow map area. In this example, fading the shadow out (or more technically, fading the light back in): https://jsfiddle.net/4675h9j8\n   No more map edge artifact:\n   <img height=\"250\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/8254c7e0-85da-46ec-a429-21ff98c955dd\" />\n   (it doesn't need to be a fade, it could be a hard drop off around the edges, but I also wanted a configurable fade in my case).\n\n### Code\n\nThe problem becomes apparent (at least in this scnenario) with this particular line:\n\n```js\nspotLight.shadow.focus = 0.3\n```\n\n### Live example\n\nabove\n\n### Screenshots\n\nabove\n\n### Version\n\nr182, macOS 26 Safari 26\n\n### Device\n\nDesktop\n\n### Browser\n\nSafari\n\n### OS\n\nMacOS",
+        "labels": [
+          "Bug"
+        ],
+        "closedAt": "2026-01-23T08:20:35Z",
+        "commentCount": 4,
+        "url": "https://github.com/mrdoob/three.js/issues/32708"
+      },
+      "pr": {
+        "number": 32817,
+        "additions": 4,
+        "deletions": 2,
+        "changedFiles": 2,
+        "mergedAt": "2026-01-22T09:06:06Z",
+        "fileList": [
+          {
+            "filename": "src/math/MathUtils.js",
+            "additions": 1,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/webgpu/nodes/WGSLNodeBuilder.js",
+            "additions": 3,
+            "deletions": 1,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32817"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Minimal changes across 2 files (6 total lines modified) suggesting a targeted bug fix, likely a shader constant or precision adjustment for WebGPU/Safari compatibility rather than architectural restructuring."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32707,
+        "title": "WebGPURenderer: Flickering issue with glTF asset using tangent attribute.",
+        "body": "### Description\n\nI get this weird vertex glitch when i use WebGPURenderer only, could it be floating precision issues, not sure.\n\n\n\n### Reproduction steps\n\n1. Move the camera around in both examples\n2. You will notice weird glitch on the model\n\n\n### Code\n\ngl={(props) => {\n      extend(THREE)\n      const renderer = new THREE.WebGPURenderer({ ...props, antialias: false })\n      return renderer.init().then(() => renderer)\n    }}\n\n### Live example\n\n* [webGPU demo](https://codesandbox.io/p/sandbox/ssr-test-forked-8973tq)\n* [webGL Demo](https://codesandbox.io/p/devbox/ssr-test-forked-86z3kc?workspaceId=ws_WRZnqT1YXgpgW1DWZ6DJW8)\n\n### Screenshots\n\n_No response_\n\n### Version\n\nr182\n\n### Device\n\nDesktop\n\n### Browser\n\nChrome\n\n### OS\n\n_No response_",
+        "labels": [
+          "Bug",
+          "WebGPU"
+        ],
+        "closedAt": "2026-01-11T18:04:53Z",
+        "commentCount": 5,
+        "url": "https://github.com/mrdoob/three.js/issues/32707"
+      },
+      "pr": {
+        "number": 32718,
+        "additions": 11,
+        "deletions": 7,
+        "changedFiles": 1,
+        "mergedAt": "2026-01-11T18:04:52Z",
+        "fileList": [
+          {
+            "filename": "src/nodes/accessors/SkinningNode.js",
+            "additions": 11,
+            "deletions": 7,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32718"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Single file change with minimal line modifications (11 added, 7 deleted) to fix a vertex attribute handling issue, likely a straightforward null check or attribute binding correction in the skinning node accessor."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32706,
+        "title": "crash if using scene.background hdr + Volumetric Lighting",
+        "body": "### Description\n\n**No idea why this happens**, but if I add an hdr background map to this: https://threejs.org/examples/?q=volu#webgpu_volume_lighting my browser crash. I tried setting the background to a color and it works fine. But with an hdr it crashes.\n\n### Reproduction steps\n\n1. use the code from https://threejs.org/examples/?q=volu#webgpu_volume_lighting \n2. add an hdr a background\n3. crash\n\n### Code\n\n```js\nimport * as THREE from \"three\";\nimport { HDRLoader } from \"three/examples/jsm/Addons.js\";\n\nexport async function addHDR(url: string, scene: THREE.Scene) {\n\tconst loader = new HDRLoader();\n\tconst envMap = await loader.loadAsync(url);\n\tenvMap.mapping = THREE.EquirectangularReflectionMapping;\n\tscene.environment = envMap;\n\tscene.background = envMap;\n}\n```\n\ncall `addHDR...` after setting up the volumetric scene and the tab will crash\n\n\n### Live example\n\n**Uncomment line 260** and the tab will crash...\n\nhttps://codesandbox.io/p/sandbox/254d57?file=%2Fsrc%2Findex.mjs\n\n\n### Screenshots\n\n_No response_\n\n### Version\n\n182\n\n### Device\n\nDesktop\n\n### Browser\n\nChrome\n\n### OS\n\nLinux",
+        "labels": [
+          "Bug",
+          "WebGPU"
+        ],
+        "closedAt": "2026-01-12T10:52:02Z",
+        "commentCount": 1,
+        "url": "https://github.com/mrdoob/three.js/issues/32706"
+      },
+      "pr": {
+        "number": 32731,
+        "additions": 10,
+        "deletions": 6,
+        "changedFiles": 1,
+        "mergedAt": "2026-01-12T10:52:01Z",
+        "fileList": [
+          {
+            "filename": "src/renderers/webgpu/utils/WebGPUUtils.js",
+            "additions": 10,
+            "deletions": 6,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32731"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Single file change with minimal line modifications (10 added, 6 deleted) to a utility file, likely a null check or type handling fix for HDR background compatibility without architectural changes."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32698,
+        "title": "Severe shadow artifacts in WebGPURenderer compared to WebGLRenderer",
+        "body": "### Description\n\nFor the same scene `WebGPURenderer` shows severe shadow acne artifacts compared to `WebGLRenderer`:\n\nBoth have identical settings regarding:\n- Shadow map resolution (1024)\n- Shadow map camera near / far\n- Render camera near / far\n- Shadow bias (0)\n- Normal bias (0)\n\n\n### Reproduction steps\n\n1. Open the two attached live examples\n\n### Code\n\nSee fiddles\n\n\n### Live example\n\n* [jsfiddle-latest-release WebGPURenderer](https://jsfiddle.net/TobiasNoell/jprxayeb/23/)\n* [jsfiddle-latest-release WebGLRenderer](https://jsfiddle.net/TobiasNoell/6hj3ear9/)\n\n\n\n### Screenshots\n\n`WebGPURenderer`:\n<img width=\"690\" height=\"451\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/8444521f-9f85-4870-bcf2-9e3487b87523\" />\n\n`WebGLRenderer`:\n<img width=\"690\" height=\"451\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/0f4485e0-82b8-4ccb-b62d-7e119de486d3\" />\n\n### Version\n\nr182\n\n### Device\n\nDesktop\n\n### Browser\n\nChrome\n\n### OS\n\nWindows",
+        "labels": [
+          "Bug",
+          "WebGPU"
+        ],
+        "closedAt": "2026-01-11T08:46:48Z",
+        "commentCount": 7,
+        "url": "https://github.com/mrdoob/three.js/issues/32698"
+      },
+      "pr": {
+        "number": 32705,
+        "additions": 57,
+        "deletions": 62,
+        "changedFiles": 14,
+        "mergedAt": "2026-01-11T08:46:47Z",
+        "fileList": [
+          {
+            "filename": "examples/screenshots/webgpu_postprocessing_outline.jpg",
+            "additions": 0,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/screenshots/webgpu_shadowmap_csm.jpg",
+            "additions": 0,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/screenshots/webgpu_shadowmap_opacity.jpg",
+            "additions": 0,
+            "deletions": 0,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/webgpu_postprocessing_outline.html",
+            "additions": 0,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/webgpu_postprocessing_sss.html",
+            "additions": 0,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/webgpu_shadowmap.html",
+            "additions": 0,
+            "deletions": 2,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/webgpu_shadowmap_csm.html",
+            "additions": 0,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "examples/webgpu_shadowmap_opacity.html",
+            "additions": 0,
+            "deletions": 1,
+            "status": "modified"
+          },
+          {
+            "filename": "src/nodes/lighting/PointShadowNode.js",
+            "additions": 11,
+            "deletions": 10,
+            "status": "modified"
+          },
+          {
+            "filename": "src/nodes/lighting/ShadowFilterNode.js",
+            "additions": 2,
+            "deletions": 30,
+            "status": "modified"
+          },
+          {
+            "filename": "src/nodes/lighting/ShadowNode.js",
+            "additions": 15,
+            "deletions": 3,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/common/Renderer.js",
+            "additions": 12,
+            "deletions": 2,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/shaders/ShaderChunk/shadowmap_pars_fragment.glsl.js",
+            "additions": 14,
+            "deletions": 8,
+            "status": "modified"
+          },
+          {
+            "filename": "src/renderers/webgl-fallback/nodes/GLSLNodeBuilder.js",
+            "additions": 3,
+            "deletions": 3,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32705"
+      },
+      "complexity": "medium",
+      "reasoning": "[AI] Requires understanding shadow rendering across multiple renderer implementations (WebGL/WebGPU) and shader systems, with changes to core shadow node logic and shader chunks, though the actual modifications are relatively contained in scope."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32668,
+        "title": "Line2NodeMaterial changed vertexColor api",
+        "body": "### Description\n\nIn `LineMaterial` you can set the material to use vertex colors (like from `LineSegmentGeometry`) after the line is created. I think this is because it inherits from the base Material class. \n\nHowever, with Nodes, it doesn't have the same param, someone saw this and added\n`useColor` which has the same effect but is a new api for no reason. \n\nWhats more confusing, is (as in the examples) during creation you pass `vertexColors` to set this by default:\n\n```ts\n\nconst myMat = new Line2NodeMaterial({\n          color: 0xffffff,\n          linewidth: 1, // in world units with size attenuation, pixels otherwise\n          worldUnits: false,\n          vertexColors: true,\n\n          alphaToCoverage: true,\n        })\n```\n\nI'm fine with it being a different name, maybe there's a reason for it, but it's confusing to have the input config and the property name be different. If possible though maybe change from `useColor` to `vertexColors` to match the input config and legacy.\n\n\n### Reproduction steps\n\n```ts\nconst geo = new LineSegmentsGeometry();\nconst mat = isWebGPU ? new Line2NodeMaterial() : new LineMaterial();\n// if webgu, this does nothing\nmat.vertexColors = true;\ngeo.setColors(colors);\n// to get working, use a new api\nmat.useColor = true;\n```\n\n\n\n\n### Version\n\n182\n",
+        "labels": [
+          "Bug"
+        ],
+        "closedAt": "2026-01-05T15:42:27Z",
+        "commentCount": 0,
+        "url": "https://github.com/mrdoob/three.js/issues/32668"
+      },
+      "pr": {
+        "number": 32670,
+        "additions": 3,
+        "deletions": 3,
+        "changedFiles": 1,
+        "mergedAt": "2026-01-05T15:42:26Z",
+        "fileList": [
+          {
+            "filename": "src/materials/nodes/Line2NodeMaterial.js",
+            "additions": 3,
+            "deletions": 3,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32670"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Straightforward API consistency fix renaming a single parameter in one file with minimal line changes, no architectural changes or cross-component dependencies."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32642,
+        "title": "ViewportDepthTextureNode buffer caching breaks depth when using multiple targets.",
+        "body": "### Description\n\nWhen attempting to render two scenes that use `viewportLinearDepth` to two different targets I noticed that only one scene would render with correct depth.\n\nFurther investigation led me to ViewportDepthTextureNode and it's singleton `_sharedDepthbuffer` that will be re-used for all nodes regardless of their render target.\n\n`ViewportTextureNode` appears to handle buffer referencing per render target using a weak map but `ViewportDepthTextureNode` overrides its `getTextureForReference()` to return the singleton instead.\n\nThere is also `ViewportSharedTextureNode` that does the same trick but its only used by `Line2NodeMaterial`\n\nI haven't tested this with multiple contexts but I imagine that sharing buffers across contexts would break as well.\n\n### Reproduction steps\n\n1. Render two scenes to two different render targets and use `viewportLinearDepth` for example\n2. Notice that only one is rendering correctly\n\nSee jsfiddle for example\n\n### Code\n\n```js\nimport * as THREE from 'three/webgpu';\n\t\t\timport { linearDepth, viewportLinearDepth, vec3 } from 'three/tsl';\n\n\t\t\timport WebGPU from 'three/addons/capabilities/WebGPU.js';\n\n\t\t\tif ( WebGPU.isAvailable() === false ) {\n\n\t\t\t\tdocument.body.appendChild( WebGPU.getErrorMessage() );\n\t\t\t\tthrow new Error( 'No WebGPU support' );\n\n\t\t\t}\n\n\t\t\tlet renderer;\n\t\t\tconst views = [];\n\n\t\t\tinit();\n\n\t\t\tfunction createView( canvasId, rotationSpeed, width, height ) {\n\n\t\t\t\tconst canvas = document.getElementById( canvasId );\n\t\t\t\tconst canvasTarget = new THREE.CanvasTarget( canvas );\n\t\t\t\tcanvasTarget.setPixelRatio( window.devicePixelRatio );\n\t\t\t\tcanvasTarget.setSize( width, height );\n\n\t\t\t\tconst scene = new THREE.Scene();\n\n\t\t\t\tconst camera = new THREE.PerspectiveCamera( 50, 1, 0.1, 10 );\n\t\t\t\tcamera.position.set( 0, 4, 0 );\n\t\t\t\tcamera.lookAt( 0, 0, 0 );\n\n\t\t\t\tconst depthDistance = viewportLinearDepth.distance( linearDepth() );\n\n\t\t\t\tconst cube = new THREE.Mesh(\n          new THREE.SphereGeometry( 0.75, 32, 32 ),\n          new THREE.MeshBasicNodeMaterial( {\n            colorNode: vec3( depthDistance ),\n            side: THREE.DoubleSide\n          } )\n        );\n\t\t\t\tcube.renderOrder = 1;\n\t\t\t\tscene.add( cube );\n\n        const bgKnot = new THREE.Mesh(\n          new THREE.TorusKnotGeometry( 1, 0.4, 50, 20 ),\n          new THREE.MeshBasicNodeMaterial()\n        );\n        bgKnot.rotation.x = - Math.PI / 2;\n        bgKnot.position.y = - 2.8;\n        scene.add( bgKnot );\n\n\t\t\t\treturn {\n\t\t\t\t\tcanvasTarget,\n\t\t\t\t\tscene,\n\t\t\t\t\tcamera,\n\t\t\t\t\tcube,\n\t\t\t\t\trotationSpeed,\n          bgKnot,\n\t\t\t\t};\n\n\t\t\t}\n\n\t\t\tfunction init() {\n\n\t\t\t\trenderer = new THREE.WebGPURenderer( { antialias: true } );\n\t\t\t\trenderer.setPixelRatio( window.devicePixelRatio );\n\t\t\t\trenderer.setAnimationLoop( animate );\n\n\t\t\t\tviews.push( createView( 'canvas1', 0.2, 360, 360 ) );\n\t\t\t\tviews.push( createView( 'canvas2', 0.8, 360, 360 ) );\n\n\t\t\t}\n\n\t\t\tfunction animate() {\n\n\t\t\t\tconst time = performance.now() * 0.001;\n\n\t\t\t\tfor ( const view of views ) {\n\n\t\t\t\t\tview.cube.rotation.x = time * view.rotationSpeed;\n\t\t\t\t\tview.cube.rotation.y = time * view.rotationSpeed * 0.7;\n\t\t\t\t\tview.bgKnot.rotation.x = time * view.rotationSpeed;\n\t\t\t\t\tview.bgKnot.rotation.y = time * view.rotationSpeed * 0.7;\n\n\t\t\t\t\trenderer.setCanvasTarget( view.canvasTarget );\n\t\t\t\t\trenderer.render( view.scene, view.camera );\n\n        }\n\n      }\n```\n\n\n### Live example\n\n* [jsfiddle-dev WebGPURenderer](https://jsfiddle.net/5ypk1mva/)\n\n\n### Screenshots\n\n<img width=\"730\" height=\"357\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/9cbda4e4-b094-436d-8839-49c1ee5e81e7\" />\n\n### Version\n\ndev\n\n### Device\n\n_No response_\n\n### Browser\n\n_No response_\n\n### OS\n\n_No response_",
+        "labels": [
+          "Bug"
+        ],
+        "closedAt": "2026-01-03T20:27:46Z",
+        "commentCount": 8,
+        "url": "https://github.com/mrdoob/three.js/issues/32642"
+      },
+      "pr": {
+        "number": 32664,
+        "additions": 4,
+        "deletions": 4,
+        "changedFiles": 1,
+        "mergedAt": "2026-01-03T20:27:45Z",
+        "fileList": [
+          {
+            "filename": "src/nodes/display/ViewportTextureNode.js",
+            "additions": 4,
+            "deletions": 4,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32664"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] This is a straightforward bug fix changing singleton buffer caching to per-target caching by following an existing pattern, with minimal code changes in a single file."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32624,
+        "title": "setPixelRatio breaks Lensflare ",
+        "body": "### Description\n\nSetting renderer.setPixelRatio(...); to anything other than 1 breaks the LensflareMesh and a tiny box appears:\n\n\n\n### Reproduction steps\n\n1. Setup a simple LensflareMesh scene\n2. set renderer.setPixelRatio(0.9);\n3. a weird square appears in the center of the flare\n \n### Live example\n\nhttps://jsfiddle.net/kg0fth4e/4/\n\n\n### Screenshots\n\n<img width=\"143\" height=\"120\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/3a3d1660-65d8-4bc1-aa38-b67005849477\" />\n\n### Version\n\n181\n\n### Device\n\nDesktop\n\n### Browser\n\nFirefox\n\n### OS\n\nLinux",
+        "labels": [
+          "Bug"
+        ],
+        "closedAt": "2025-12-28T10:04:30Z",
+        "commentCount": 0,
+        "url": "https://github.com/mrdoob/three.js/issues/32624"
+      },
+      "pr": {
+        "number": 32625,
+        "additions": 1,
+        "deletions": 1,
+        "changedFiles": 1,
+        "mergedAt": "2025-12-28T10:04:29Z",
+        "fileList": [
+          {
+            "filename": "examples/jsm/objects/LensflareMesh.js",
+            "additions": 1,
+            "deletions": 1,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32625"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] Single line change in one file to fix a pixel ratio scaling issue in LensflareMesh, a straightforward bug fix with minimal scope."
+    },
+    {
+      "repo": "mrdoob/three.js",
+      "issue": {
+        "number": 32591,
+        "title": "PCFSoftShadowMap shadows become extremely pixelated in r0.182.0 (regression from r0.181.0)",
+        "body": "### Description\n\nAfter upgrading **Three.js from r0.181.0 to r0.182.0**, directional light shadows become **severely pixelated**, despite using the **exact same code and shadow configuration**.\n\nNote: originally raised in [forum](https://discourse.threejs.org/t/shadow-pixelation-issue-in-three-js-0-182-0/88746), with solution found the [Migration Notes](https://github.com/mrdoob/three.js/wiki/Migration-Guide?utm_source=chatgpt.com)\n“`PCFSoftShadowMap `is now deprecated. Use `PCFShadowMap `which is now soft as well.”\n\n### Reproduction steps\n\nThe issue is reproducible by changing **only the Three.js version**. No other logic or parameters are modified.\n\n---\n\n**Steps to reproduce:**\n1. Open the CodePen (single-file repro) above\n2. Run it with **three@0.182.0** → shadows are heavily pixelated\n3. Change the import map to **three@0.181.0**\n4. Re-run → shadows appear smooth and correct\n\n---\n\n### Three.js version\n- **Works:** r0.181.0  \n- **Broken:** r0.182.0\n\n---\n\n### Browser\n- Chrome (latest)\n- Edge (latest)\n\n---\n\n### OS\n- Windows 10 / 11\n\n\n### Code\n\n### Shadow setup (excerpt)\n```js\nrenderer.shadowMap.enabled = true;\nrenderer.shadowMap.type = THREE.PCFSoftShadowMap;\n\nsun.castShadow = true;\nsun.shadow.mapSize.set(4096, 4096);\nsun.shadow.bias = -0.0001;\nsun.shadow.normalBias = 0.005;\n\nsun.shadow.camera.near = 1;\nsun.shadow.camera.far = 300;\nsun.shadow.camera.left = -50;\nsun.shadow.camera.right = 50;\nsun.shadow.camera.top = 50;\nsun.shadow.camera.bottom = -50;\n```\n\n### Live example\nCodePen (single-file repro):  \nhttps://codepen.io/the-red-reddington/pen/KwzOYqG\n\nAlternatively see this [v181 (smooth, works as expected)](https://codepen.io/the-red-reddington/pen/emZwajR) vs [v182 (pixelated)](https://codepen.io/the-red-reddington/pen/pvyMQge)\n\n\n### Screenshots\n\n_No response_\n\n### Version\n\n0.182.0\n\n### Device\n\nMobile, Desktop\n\n### Browser\n\nEdge\n\n### OS\n\nWindows",
+        "labels": [
+          "Bug",
+          "WebGLRenderer"
+        ],
+        "closedAt": "2025-12-20T09:34:45Z",
+        "commentCount": 0,
+        "url": "https://github.com/mrdoob/three.js/issues/32591"
+      },
+      "pr": {
+        "number": 32593,
+        "additions": 2,
+        "deletions": 2,
+        "changedFiles": 1,
+        "mergedAt": "2025-12-20T09:34:44Z",
+        "fileList": [
+          {
+            "filename": "src/renderers/webgl/WebGLShadowMap.js",
+            "additions": 2,
+            "deletions": 2,
+            "status": "modified"
+          }
+        ],
+        "url": "https://github.com/mrdoob/three.js/pull/32593"
+      },
+      "complexity": "low",
+      "reasoning": "[AI] This is a straightforward deprecation fix involving a simple constant/enum value change in a single file with minimal line modifications, requiring no architectural changes or cross-system coordination."
+    }
+  ]
+}
